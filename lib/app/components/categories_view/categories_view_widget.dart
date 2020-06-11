@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/components/backdrop/backdrop_controller.dart';
+import 'package:travel_agency_front/app/components/horizontal_section/horizontal_section_widget.dart';
 
 class CategoriesViewWidget extends StatefulWidget {
   const CategoriesViewWidget({Key key}) : super(key: key);
@@ -17,9 +18,9 @@ class _CategoriesViewWidgetState extends State<CategoriesViewWidget> {
     return Observer(builder: (_) {
       switch (backdropController.currentChosenTabIndex) {
         case 0:
-          return Text(
-            "oi",
-            style: TextStyle(color: Colors.black),
+          return HorizontalSectionWidget(
+            items: [Text("ai")],
+            title: "Testando",
           );
         case 1:
           return Text(

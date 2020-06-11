@@ -117,7 +117,6 @@ class _BackdropWidgetState extends State<BackdropWidget>
     var appBar = AppBar(
       brightness: Brightness.light,
       elevation: 0.0,
-      titleSpacing: 0.0,
       title: BackdropTitleWidget(
         listenable: _controller.view,
         onPress: _toggleBackdropLayerVisibility,
