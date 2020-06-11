@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_agency_front/app/components/backdrop/backdrop_widget.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -11,13 +12,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return BackdropWidget(
+      tabIcons: [
+        Tab(icon: Icon(Icons.airplanemode_active)),
+        Tab(icon: Icon(Icons.directions_transit)),
+      ],
+      backLayer: Container(
+        color: Colors.red,
       ),
-      body: Column(
-        children: <Widget>[],
-      ),
+      frontLayer: Center(),
+      backTitle: Text("Filtrar"),
+      frontTitle: Text("Travel Agency"),
     );
   }
 }
