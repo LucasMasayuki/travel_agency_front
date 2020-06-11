@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:travel_agency_front/app/components/backdrop/backdrop_controller.dart';
 import 'package:travel_agency_front/app/components/backdrop_title/backdrop_title_widget.dart';
 import 'package:travel_agency_front/app/components/front_layer/front_layer_widget.dart';
 
@@ -25,13 +27,19 @@ class BackdropWidget extends StatefulWidget {
 }
 
 class _BackdropWidgetState extends State<BackdropWidget>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
+  final BackdropController backdropController = Modular.get();
   AnimationController _controller;
+  TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+
+    _tabController = TabController(vsync: this, length: widget.tabIcons.length);
+    _tabController.addListener(_handleTabSelection);
+
     _controller = AnimationController(
       duration: Duration(milliseconds: 300),
       value: 1.0,
@@ -53,8 +61,15 @@ class _BackdropWidgetState extends State<BackdropWidget>
 
   @override
   void dispose() {
+    _tabController.dispose();
     _controller.dispose();
     super.dispose();
+  }
+
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+      backdropController.onSelectTab(_tabController.index);
+    }
   }
 
   bool get _frontLayerVisible {
@@ -110,18 +125,24 @@ class _BackdropWidgetState extends State<BackdropWidget>
         backTitle: widget.backTitle,
       ),
       bottom: TabBar(
+        controller: _tabController,
+        unselectedLabelColor: Colors.redAccent,
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicator: BoxDecoration(
+            gradient:
+                LinearGradient(colors: [Colors.redAccent, Colors.orangeAccent]),
+            borderRadius: BorderRadius.circular(50),
+            color: Colors.redAccent),
         isScrollable: true,
         tabs: widget.tabIcons,
       ),
     );
 
-    return DefaultTabController(
-        length: widget.tabIcons.length,
-        child: Scaffold(
-          appBar: appBar,
-          body: LayoutBuilder(
-            builder: _buildStack,
-          ),
-        ));
+    return Scaffold(
+      appBar: appBar,
+      body: LayoutBuilder(
+        builder: _buildStack,
+      ),
+    );
   }
 }
