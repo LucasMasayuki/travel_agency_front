@@ -10,8 +10,8 @@ class HorizontalSectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 20.0),
-        height: 200.0,
+        margin: EdgeInsets.symmetric(vertical: 10),
+        height: 350.0,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.black12,
@@ -20,28 +20,7 @@ class HorizontalSectionWidget extends StatelessWidget {
         ),
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: <Widget>[
-            Container(
-              width: 160.0,
-              color: Colors.red,
-            ),
-            Container(
-              width: 160.0,
-              color: Colors.blue,
-            ),
-            Container(
-              width: 160.0,
-              color: Colors.green,
-            ),
-            Container(
-              width: 160.0,
-              color: Colors.yellow,
-            ),
-            Container(
-              width: 160.0,
-              color: Colors.orange,
-            ),
-          ],
+          children: items,
         ));
   }
 }

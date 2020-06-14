@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
         Tab(icon: Icon(Icons.directions_transit)),
       ],
       backLayer: Container(
-        color: Colors.red,
+        color: Colors.indigo,
       ),
       frontLayer: CategoriesViewWidget(),
       backTitle: Text("Filtrar"),

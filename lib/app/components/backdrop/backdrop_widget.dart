@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/components/backdrop/backdrop_controller.dart';
 import 'package:travel_agency_front/app/components/backdrop_title/backdrop_title_widget.dart';
@@ -115,27 +114,29 @@ class _BackdropWidgetState extends State<BackdropWidget>
   @override
   Widget build(BuildContext context) {
     var appBar = AppBar(
-      brightness: Brightness.light,
-      elevation: 0.0,
-      title: BackdropTitleWidget(
-        listenable: _controller.view,
-        onPress: _toggleBackdropLayerVisibility,
-        frontTitle: widget.frontTitle,
-        backTitle: widget.backTitle,
-      ),
-      bottom: TabBar(
-        controller: _tabController,
-        unselectedLabelColor: Colors.redAccent,
-        indicatorSize: TabBarIndicatorSize.tab,
-        indicator: BoxDecoration(
-            gradient:
-                LinearGradient(colors: [Colors.redAccent, Colors.orangeAccent]),
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.redAccent),
-        isScrollable: true,
-        tabs: widget.tabIcons,
-      ),
-    );
+        elevation: 0.0,
+        title: BackdropTitleWidget(
+          listenable: _controller.view,
+          onPress: _toggleBackdropLayerVisibility,
+          frontTitle: widget.frontTitle,
+          backTitle: widget.backTitle,
+        ),
+        bottom: PreferredSize(
+            preferredSize: Size.fromHeight(48.0),
+            child: Container(
+              margin: EdgeInsets.only(bottom: 6, top: 6),
+              child: TabBar(
+                controller: _tabController,
+                unselectedLabelColor: Colors.grey,
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicator: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [Colors.redAccent, Colors.orangeAccent]),
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.redAccent),
+                tabs: widget.tabIcons,
+              ),
+            )));
 
     return Scaffold(
       appBar: appBar,

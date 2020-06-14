@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class FrontLayerWidget extends StatelessWidget {
   final VoidCallback onTap;
+  final Widget clickableWidget;
   final Widget child;
 
   const FrontLayerWidget({
     Key key,
     this.onTap,
+    this.clickableWidget,
     this.child,
   }) : super(key: key);
 
@@ -27,6 +29,7 @@ class FrontLayerWidget extends StatelessWidget {
             child: Container(
               height: 40.0,
               alignment: AlignmentDirectional.centerStart,
+              child: Align(alignment: Alignment.center, child: clickableWidget),
             ),
           ),
           Expanded(
