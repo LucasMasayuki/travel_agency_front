@@ -23,15 +23,22 @@ class _CategoriesViewWidgetState extends State<CategoriesViewWidget> {
           items = HorizontalSectionWidget(
             items: [
               ItemCardWidget(
-                  title: "Buenos aires",
+                  categoryName: "Hospedagens",
+                  title: "Hotel 5 estrelas",
                   description: "Colors.red",
+                  photo:
+                      "https://www.interativapantanal.com.br/_images/especiais/208672197.jpg",
                   price: "142,00"),
               ItemCardWidget(
-                  title: "Brasilia",
+                  categoryName: "Hospedagens",
+                  title: "Fazenda especial",
                   description: "Colors.red",
-                  price: "R 122,00"),
+                  price: "122,00"),
               ItemCardWidget(
-                  title: "CAcau", description: "Colors.red", price: "55,00")
+                  categoryName: "Hospedagens",
+                  title: "Hotel fazenda especial",
+                  description: "Colors.red",
+                  price: "55,00")
             ],
             title: "Testando",
           );

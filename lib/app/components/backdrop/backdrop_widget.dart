@@ -130,10 +130,8 @@ class _BackdropWidgetState extends State<BackdropWidget>
                 unselectedLabelColor: Colors.grey,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicator: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Colors.redAccent, Colors.orangeAccent]),
                     borderRadius: BorderRadius.circular(50),
-                    color: Colors.redAccent),
+                    border: Border.all(color: Colors.white, width: 3)),
                 tabs: widget.tabIcons,
               ),
             )));

@@ -17,11 +17,22 @@ class _HomePageState extends State<HomePage> {
         Tab(
           child: Align(
             alignment: Alignment.center,
-            child: Text("APPS"),
+            child: Column(children: [Icon(Icons.hotel), Text("Hospedagem")]),
           ),
         ),
-        Tab(icon: Icon(Icons.airplanemode_active)),
-        Tab(icon: Icon(Icons.directions_transit)),
+        Tab(
+          child: Align(
+            alignment: Alignment.center,
+            child:
+                Column(children: [Icon(Icons.flight_takeoff), Text("Viagens")]),
+          ),
+        ),
+        Tab(
+          child: Align(
+            alignment: Alignment.center,
+            child: Column(children: [Icon(Icons.local_offer), Text("Pacotes")]),
+          ),
+        ),
       ],
       backLayer: Container(
         color: Colors.indigo,

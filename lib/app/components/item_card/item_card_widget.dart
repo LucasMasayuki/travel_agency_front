@@ -1,39 +1,70 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ItemCardWidget extends StatelessWidget {
+  final String categoryName;
   final String title;
   final String description;
   final String photo;
   final String price;
   const ItemCardWidget(
-      {Key key, @required this.title, this.photo, this.description, this.price})
+      {Key key,
+      @required this.title,
+      this.photo,
+      @required this.description,
+      @required this.price,
+      @required this.categoryName})
       : super(key: key);
 
   List<Widget> getCardBody() {
     List<Widget> cardBody = [];
+    Widget placeholderImg = Container(
+        width: 300,
+        height: 140,
+        child: Align(alignment: Alignment.center, child: Icon(Icons.image)),
+        decoration: BoxDecoration(
+          color: Colors.grey,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        ));
+
+    Widget imgContainer = placeholderImg;
 
     if (photo != null) {
-      cardBody.add(Container(
-          child: Image(image: AssetImage(photo)),
-          decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          )));
-    } else {
-      cardBody.add(Container(
+      imgContainer = Container(
           width: 300,
           height: 140,
-          child: Align(alignment: Alignment.center, child: Icon(Icons.image)),
+          child: CachedNetworkImage(
+            imageUrl: photo,
+            placeholder: (context, url) => Center(
+                child: Container(
+              color: Colors.white,
+            )),
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                Center(
+                    child: CircularProgressIndicator(
+                        value: downloadProgress.progress)),
+            errorWidget: (context, url, error) => placeholderImg,
+          ),
           decoration: BoxDecoration(
-            color: Colors.grey,
+            color: Colors.white,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          )));
+          ));
     }
 
+    Widget categoryNameWidget = Container(
+        margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            categoryName,
+            style: TextStyle(fontSize: 16),
+          ),
+        ));
+
     Widget titleWidget = Container(
-        margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
+        margin: EdgeInsets.all(10),
         child: Align(
           alignment: Alignment.topLeft,
           child: Text(
@@ -43,45 +74,63 @@ class ItemCardWidget extends StatelessWidget {
         ));
 
     Widget descriptionWidget = Container(
-        height: 40,
+        height: 140,
         margin: EdgeInsets.all(10),
         child: Align(
           alignment: Alignment.topLeft,
           child: Text(
             title,
-            style: TextStyle(fontSize: 16, color: Colors.grey),
+            style: TextStyle(fontSize: 16, color: Colors.black),
           ),
         ));
 
     Widget priceWidget = Container(
-      width: 400,
-      decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
-      margin: EdgeInsets.only(top: 10, bottom: 10),
-      child: Container(
-          margin: EdgeInsets.only(top: 10, right: 10),
-          child: Align(
-              alignment: Alignment.bottomRight,
-              child: Column(children: [
-                Text(
-                  "A partir de",
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                  textAlign: TextAlign.right,
-                ),
-                Text(
-                  "R\$ $price",
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold),
-                )
-              ]))),
-    );
-
-    cardBody.add(Container(
+        decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
+        height: 40,
+        margin: EdgeInsets.only(left: 10, bottom: 10),
         child: Column(
-      children: [titleWidget, descriptionWidget, priceWidget],
-    )));
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "A partir de",
+                style: TextStyle(fontSize: 14, color: Colors.black),
+                textAlign: TextAlign.left,
+              ),
+              Text(
+                "R\$ $price",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              )
+            ]));
+
+    cardBody.add(Expanded(
+      child: imgContainer,
+      flex: 4,
+    ));
+
+    cardBody.add(Expanded(
+      child: categoryNameWidget,
+      flex: 1,
+    ));
+
+    cardBody.add(Expanded(
+      child: titleWidget,
+      flex: 3,
+    ));
+
+    cardBody.add(Expanded(
+      child: descriptionWidget,
+      flex: 4,
+    ));
+
+    cardBody.add(Expanded(
+      child: priceWidget,
+      flex: 2,
+    ));
 
     return cardBody;
   }
@@ -93,10 +142,13 @@ class ItemCardWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
       ),
+      elevation: 2,
       child: Container(
-        width: 300,
+        width: 250,
         child: Column(
           children: cardBody,
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
         ),
       ),
     );

@@ -11,13 +11,7 @@ class HorizontalSectionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.symmetric(vertical: 10),
-        height: 350.0,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black12,
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        ),
+        height: 450.0,
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: items,
