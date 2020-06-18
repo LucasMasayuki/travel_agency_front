@@ -15,10 +15,13 @@ class FrontLayerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.purpleAccent,
       elevation: 16.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0)),
+          topLeft: Radius.circular(40.0),
+          topRight: Radius.circular(40.0),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -29,7 +32,10 @@ class FrontLayerWidget extends StatelessWidget {
             child: Container(
               height: 40.0,
               alignment: AlignmentDirectional.centerStart,
-              child: Align(alignment: Alignment.center, child: clickableWidget),
+              child: Align(
+                alignment: Alignment.center,
+                child: clickableWidget,
+              ),
             ),
           ),
           Expanded(

@@ -79,7 +79,8 @@ class _BackdropWidgetState extends State<BackdropWidget>
 
   void _toggleBackdropLayerVisibility() {
     _controller.fling(
-        velocity: _frontLayerVisible ? -_kFlingVelocity : _kFlingVelocity);
+      velocity: _frontLayerVisible ? -_kFlingVelocity : _kFlingVelocity,
+    );
   }
 
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
@@ -114,27 +115,30 @@ class _BackdropWidgetState extends State<BackdropWidget>
   @override
   Widget build(BuildContext context) {
     var appBar = AppBar(
-        elevation: 0.0,
-        title: BackdropTitleWidget(
-          listenable: _controller.view,
-          onPress: _toggleBackdropLayerVisibility,
-          frontTitle: widget.frontTitle,
-          backTitle: widget.backTitle,
+      elevation: 0.0,
+      title: BackdropTitleWidget(
+        listenable: _controller.view,
+        onPress: _toggleBackdropLayerVisibility,
+        frontTitle: widget.frontTitle,
+        backTitle: widget.backTitle,
+      ),
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(48.0),
+        child: Container(
+          margin: EdgeInsets.only(bottom: 6, top: 6),
+          child: TabBar(
+            controller: _tabController,
+            unselectedLabelColor: Colors.grey,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              border: Border.all(color: Colors.white, width: 3),
+            ),
+            tabs: widget.tabIcons,
+          ),
         ),
-        bottom: PreferredSize(
-            preferredSize: Size.fromHeight(48.0),
-            child: Container(
-              margin: EdgeInsets.only(bottom: 6, top: 6),
-              child: TabBar(
-                controller: _tabController,
-                unselectedLabelColor: Colors.grey,
-                indicatorSize: TabBarIndicatorSize.tab,
-                indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(color: Colors.white, width: 3)),
-                tabs: widget.tabIcons,
-              ),
-            )));
+      ),
+    );
 
     return Scaffold(
       appBar: appBar,

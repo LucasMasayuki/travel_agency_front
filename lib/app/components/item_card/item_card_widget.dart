@@ -7,105 +7,136 @@ class ItemCardWidget extends StatelessWidget {
   final String description;
   final String photo;
   final String price;
-  const ItemCardWidget(
-      {Key key,
-      @required this.title,
-      this.photo,
-      @required this.description,
-      @required this.price,
-      @required this.categoryName})
-      : super(key: key);
+  const ItemCardWidget({
+    Key key,
+    this.photo,
+    @required this.title,
+    @required this.description,
+    @required this.price,
+    @required this.categoryName,
+  }) : super(key: key);
 
   List<Widget> getCardBody() {
     List<Widget> cardBody = [];
     Widget placeholderImg = Container(
-        width: 300,
-        height: 140,
-        child: Align(alignment: Alignment.center, child: Icon(Icons.image)),
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-        ));
+      width: 300,
+      height: 140,
+      child: Align(
+        alignment: Alignment.center,
+        child: Icon(Icons.image),
+      ),
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+    );
 
     Widget imgContainer = placeholderImg;
 
     if (photo != null) {
       imgContainer = Container(
-          width: 300,
-          height: 140,
-          child: CachedNetworkImage(
-            imageUrl: photo,
-            placeholder: (context, url) => Center(
-                child: Container(
+        width: 300,
+        height: 140,
+        child: CachedNetworkImage(
+          imageUrl: photo,
+          placeholder: (context, url) => Center(
+            child: Container(
               color: Colors.white,
-            )),
-            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                Center(
-                    child: CircularProgressIndicator(
-                        value: downloadProgress.progress)),
-            errorWidget: (context, url, error) => placeholderImg,
+            ),
           ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          ));
+          progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+            child: CircularProgressIndicator(value: downloadProgress.progress),
+          ),
+          errorWidget: (context, url, error) => placeholderImg,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
+      );
     }
 
     Widget categoryNameWidget = Container(
-        margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            categoryName,
-            style: TextStyle(fontSize: 16),
-          ),
-        ));
+      margin: EdgeInsets.only(
+        top: 10,
+        left: 10,
+        right: 10,
+      ),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Text(
+          categoryName,
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
+    );
 
     Widget titleWidget = Container(
-        margin: EdgeInsets.all(10),
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 28),
-          ),
-        ));
+      margin: EdgeInsets.all(10),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Text(
+          title,
+          style: TextStyle(fontSize: 28),
+        ),
+      ),
+    );
 
     Widget descriptionWidget = Container(
-        height: 140,
-        margin: EdgeInsets.all(10),
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 16, color: Colors.black),
+      height: 140,
+      margin: EdgeInsets.all(10),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black,
           ),
-        ));
+        ),
+      ),
+    );
 
     Widget priceWidget = Container(
-        decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
-        height: 40,
-        margin: EdgeInsets.only(left: 10, bottom: 10),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "A partir de",
-                style: TextStyle(fontSize: 14, color: Colors.black),
-                textAlign: TextAlign.left,
-              ),
-              Text(
-                "R\$ $price",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-              )
-            ]));
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: Colors.grey,
+            width: 0.5,
+          ),
+        ),
+      ),
+      height: 40,
+      margin: EdgeInsets.only(left: 10, bottom: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "A partir de",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.left,
+          ),
+          Text(
+            "R\$ $price",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
+      ),
+    );
 
     cardBody.add(Expanded(
       child: imgContainer,
