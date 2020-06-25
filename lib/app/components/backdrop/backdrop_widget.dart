@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:travel_agency_front/app/components/backdrop/backdrop_controller.dart';
 import 'package:travel_agency_front/app/components/backdrop_title/backdrop_title_widget.dart';
+import 'package:travel_agency_front/app/components/categories_view/categories_view_model.dart';
 import 'package:travel_agency_front/app/components/front_layer/front_layer_widget.dart';
 
 const double _kFlingVelocity = 2.0;
@@ -28,7 +28,7 @@ class BackdropWidget extends StatefulWidget {
 class _BackdropWidgetState extends State<BackdropWidget>
     with TickerProviderStateMixin {
   final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
-  final BackdropController backdropController = Modular.get();
+  final CategoriesViewModel categoriesViewModel = Modular.get();
   AnimationController _controller;
   TabController _tabController;
 
@@ -67,7 +67,7 @@ class _BackdropWidgetState extends State<BackdropWidget>
 
   void _handleTabSelection() {
     if (_tabController.indexIsChanging) {
-      backdropController.onSelectTab(_tabController.index);
+      categoriesViewModel.onChangeView(_tabController.index);
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_agency_front/app/components/backdrop/backdrop_widget.dart';
 import 'package:travel_agency_front/app/components/categories_view/categories_view_widget.dart';
+import 'package:travel_agency_front/app/components/search_items/search_items_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -23,8 +24,7 @@ class _HomePageState extends State<HomePage> {
         Tab(
           child: Align(
             alignment: Alignment.center,
-            child:
-                Column(children: [Icon(Icons.flight_takeoff), Text("Viagens")]),
+            child: Column(children: [Icon(Icons.flight_takeoff), Text("Voos")]),
           ),
         ),
         Tab(
@@ -34,9 +34,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ],
-      backLayer: Container(
-        color: Colors.indigo,
-      ),
+      backLayer: SearchItemsViewWidget(),
       frontLayer: CategoriesViewWidget(),
       backTitle: Text("Filtrar"),
       frontTitle: Text("Travel Agency"),

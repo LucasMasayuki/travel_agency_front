@@ -15,10 +15,15 @@ class SearchFormWidget extends StatefulWidget {
 class _SearchFormWidgetState extends State<SearchFormWidget> {
   Widget getSearchButton() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+      margin: const EdgeInsets.only(bottom: 70, left: 20, right: 20, top: 20),
       child: RaisedButton(
-        onPressed: () {},
-        child: Text('Save'),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        onPressed: widget.onSearch,
+        child: Text('Procurar'),
+        color: Colors.orange[400],
+        textColor: Colors.white,
       ),
     );
   }
@@ -28,8 +33,7 @@ class _SearchFormWidgetState extends State<SearchFormWidget> {
     widget.formBody.add(getSearchButton());
 
     return Form(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: ListView(
         children: widget.formBody,
       ),
     );

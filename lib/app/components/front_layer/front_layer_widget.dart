@@ -15,7 +15,6 @@ class FrontLayerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.purpleAccent,
       elevation: 16.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
