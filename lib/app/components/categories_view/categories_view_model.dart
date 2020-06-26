@@ -1,6 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
-import 'package:travel_agency_front/app/view_data/flight_search_view_data.dart';
 
 part 'categories_view_model.g.dart';
 
@@ -11,10 +10,25 @@ abstract class _CategoriesBase with Store {
   bool isLoading = false;
 
   @observable
+  bool isEmpty = false;
+
+  @observable
   int currentChosenTabIndex = 0;
+
+  @observable
+  List<Widget> items = [];
 
   @action
   void onChangeView(viewId) {
     currentChosenTabIndex = viewId;
+    items = [];
+    isLoading = true;
+    isEmpty = true;
+  }
+
+  @action
+  void onLoadData() {
+    isLoading = false;
+    isEmpty = isEmpty;
   }
 }

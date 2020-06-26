@@ -6,6 +6,7 @@ import 'package:travel_agency_front/app/components/categories_view/category_flig
 import 'package:travel_agency_front/app/components/empty_page/empty_page_widget.dart';
 import 'package:travel_agency_front/app/components/item_card/flight_card.dart';
 import 'package:travel_agency_front/app/components/item_card/item_card_widget.dart';
+import 'package:travel_agency_front/app/components/loading_page/loading_page_widget.dart';
 
 class CategoriesViewWidget extends StatefulWidget {
   const CategoriesViewWidget({Key key}) : super(key: key);
@@ -20,13 +21,12 @@ class _CategoriesViewWidgetState extends State<CategoriesViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> items;
-    bool isEmpty;
+    categoryFlightViewModel.initialize();
 
     return Observer(builder: (_) {
       switch (categoriesViewModel.currentChosenTabIndex) {
         case 0:
-          items = [
+          categoriesViewModel.items = [
             ItemCardWidget(
               categoryName: "Hospedagens",
               title: "Hotel 5 estrelas",
@@ -50,25 +50,25 @@ class _CategoriesViewWidgetState extends State<CategoriesViewWidget> {
           ];
           break;
         case 1:
-          items = [];
-
           categoryFlightViewModel.flightViewData.forEach((element) {
-            items.add(
+            categoriesViewModel.items.add(
               FlightCard(
                 flight: element,
               ),
             );
           });
 
-          isEmpty = categoryFlightViewModel.isEmptyPage;
-
           break;
         case 2:
-          items = [Text("2")];
+          categoriesViewModel.items = [Text("2")];
           break;
       }
 
-      if (isEmpty) {
+      if (categoriesViewModel.isLoading) {
+        return LoadingPageWidget();
+      }
+
+      if (categoriesViewModel.isEmpty) {
         return EmptyPageWidget();
       }
 
@@ -76,7 +76,7 @@ class _CategoriesViewWidgetState extends State<CategoriesViewWidget> {
         childAspectRatio: (300 / 500),
         shrinkWrap: true,
         crossAxisCount: 3,
-        children: items,
+        children: categoriesViewModel.items,
       );
     });
   }
