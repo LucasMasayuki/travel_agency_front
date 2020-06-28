@@ -20,7 +20,6 @@ class ApiService {
     ProgressCallback onReceiveProgress,
   }) async {
     final client = await getClient();
-    print(queryParameters);
 
     final response = await client.get(path,
         queryParameters: queryParameters,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/components/backdrop_title/backdrop_title_widget.dart';
-import 'package:travel_agency_front/app/components/categories_view/categories_view_model.dart';
+import 'package:travel_agency_front/app/components/categories_view/view_model/categories_view_model.dart';
 import 'package:travel_agency_front/app/components/front_layer/front_layer_widget.dart';
 
 const double _kFlingVelocity = 2.0;

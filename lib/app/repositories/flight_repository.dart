@@ -13,17 +13,20 @@ class FlightRepository extends Disposable {
       final response = await apiService.get('/flights', queryParameters: {
         'adults': flight.adults,
         'children': flight.children,
-        'departureDate': flight.departureDate,
+        'departureDate': "2020-07-10",
+        'returnDate': "2020-07-20",
         'destiny': flight.destiny,
         'origin': flight.origin,
+        'maxPrice': 99999,
+        'infants': 1,
       });
 
-      if (response.data['status'] != 'success') {
+      if (response.statusCode != 200) {
         return RepositoryResult(
-            null, response.data['message'] ?? 'unknown error');
+            null, response.statusMessage ?? 'unknown error');
       }
 
-      List<FlightModel> flights = (response.data['data'] as List)
+      List<FlightModel> flights = (response.data as List)
           .map((flight) => FlightModel.fromJson(flight))
           .toList();
 

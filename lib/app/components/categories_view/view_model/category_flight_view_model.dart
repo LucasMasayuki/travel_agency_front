@@ -1,7 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:travel_agency_front/app/components/categories_view/categories_view_model.dart';
+import 'package:travel_agency_front/app/components/categories_view/view_model/categories_view_model.dart';
+import 'package:travel_agency_front/app/components/item_card/flight_card.dart';
 import 'package:travel_agency_front/app/models/flight_model.dart';
 import 'package:travel_agency_front/app/repositories/flight_repository.dart';
 import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
@@ -13,10 +14,11 @@ part 'category_flight_view_model.g.dart';
 class CategoryFlightViewModel = _CategoriesBase with _$CategoryFlightViewModel;
 
 abstract class _CategoriesBase with Store {
-  final CategoriesViewModel categoriesViewModel = Modular.get();
+  @observable
+  List<FlightCard> flightViewData = [];
 
   @observable
-  List<RowViewDataAbstract> flightViewData = [];
+  bool isLoading;
 
   @observable
   String errorMessage;
@@ -26,46 +28,37 @@ abstract class _CategoriesBase with Store {
 
   @computed
   bool get hasError =>
-      !categoriesViewModel.isLoading &&
-      errorMessage != null &&
-      errorMessage.isNotEmpty;
+      !isLoading && errorMessage != null && errorMessage.isNotEmpty;
 
   @action
   Future<void> initialize() async {
-    final FlightRepository repository = Modular.get();
     FlightSearchViewData flight = _getInitialFlight();
 
-    final result = await repository.getFlights(flight);
-    final viewDataList = _buildViewData(result.success ?? []);
-
-    flightViewData.addAll(viewDataList);
-    errorMessage = result.error;
-    print(errorMessage);
-    print(viewDataList);
+    return loadFlights(flight);
   }
 
   @action
   Future<void> loadFlights(FlightSearchViewData flight) async {
     final FlightRepository repository = Modular.get();
 
-    categoriesViewModel.isLoading = true;
+    isLoading = true;
     final result = await repository.getFlights(flight);
     final viewDataList = _buildViewData(result.success ?? []);
 
     flightViewData.addAll(viewDataList);
     errorMessage = result.error;
-    categoriesViewModel.isLoading = false;
+    isLoading = false;
   }
 
-  List<RowViewDataAbstract> _buildViewData(List<FlightModel> flight) {
+  List<FlightCard> _buildViewData(List<FlightModel> flight) {
     if (flight.isEmpty) {
       return [];
     }
 
-    var viewDataList = <RowViewDataAbstract>[];
+    var viewDataList = <FlightCard>[];
 
     viewDataList.addAll(flight.map((item) {
-      return FlightViewData(flight: item);
+      return FlightCard(flight: FlightViewData(flight: item));
     }));
 
     return viewDataList;
@@ -73,13 +66,14 @@ abstract class _CategoriesBase with Store {
 
   FlightSearchViewData _getInitialFlight() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd hh:mm:ss').format(now);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     return FlightSearchViewData(
       adults: 1,
       children: 1,
       departureDate: formattedDate,
-      destiny: "São Paulo",
-      origin: "Buenos Aires",
+      returnDate: formattedDate,
+      destiny: "Posadas, Misiones, Argentina",
+      origin: "Rio de Janeiro, Rio de Janeiro, Brasil",
     );
   }
 }

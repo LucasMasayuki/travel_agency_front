@@ -18,19 +18,36 @@ class _HomePageState extends State<HomePage> {
         Tab(
           child: Align(
             alignment: Alignment.center,
-            child: Column(children: [Icon(Icons.hotel), Text("Hospedagem")]),
+            child: Column(
+              children: [
+                Icon(Icons.hotel),
+                Text("Hoteis"),
+              ],
+            ),
           ),
         ),
         Tab(
           child: Align(
             alignment: Alignment.center,
-            child: Column(children: [Icon(Icons.flight_takeoff), Text("Voos")]),
+            child: Column(
+              children: [
+                Icon(Icons.flight_takeoff),
+                Text("Voos"),
+              ],
+            ),
           ),
         ),
         Tab(
           child: Align(
             alignment: Alignment.center,
-            child: Column(children: [Icon(Icons.local_offer), Text("Pacotes")]),
+            child: Column(
+              children: [
+                Icon(Icons.camera_roll),
+                Text(
+                  "Vericulos",
+                )
+              ],
+            ),
           ),
         ),
       ],

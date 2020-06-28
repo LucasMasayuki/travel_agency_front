@@ -1,6 +1,6 @@
-import 'package:travel_agency_front/app/components/categories_view/categories_view_model.dart';
-import 'package:travel_agency_front/app/components/categories_view/category_flight_view_model.dart';
-import 'package:travel_agency_front/app/components/search_items/search_flight_view_model.dart';
+import 'package:travel_agency_front/app/components/categories_view/view_model/categories_view_model.dart';
+import 'package:travel_agency_front/app/components/categories_view/view_model/category_flight_view_model.dart';
+import 'package:travel_agency_front/app/components/search_items/view_models/search_flight_view_model.dart';
 import 'package:travel_agency_front/app/repositories/hotel_repository.dart';
 import 'package:travel_agency_front/app/repositories/flight_repository.dart';
 import 'package:dio/dio.dart';

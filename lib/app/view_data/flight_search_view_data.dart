@@ -4,6 +4,7 @@ class FlightSearchViewData implements RowViewDataAbstract {
   final int adults;
   final int children;
   final String departureDate;
+  final String returnDate;
   final String destiny;
   final String origin;
 
@@ -11,6 +12,7 @@ class FlightSearchViewData implements RowViewDataAbstract {
     this.adults,
     this.children,
     this.departureDate,
+    this.returnDate,
     this.destiny,
     this.origin,
   });

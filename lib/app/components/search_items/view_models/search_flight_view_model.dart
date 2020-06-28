@@ -1,4 +1,6 @@
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:travel_agency_front/app/repositories/flight_city_repository.dart';
 import 'package:travel_agency_front/app/view_data/flight_search_view_data.dart';
 
 part 'search_flight_view_model.g.dart';
@@ -54,5 +56,12 @@ abstract class _FlightBase with Store {
       destiny: this.destiny,
       origin: this.origin,
     );
+  }
+
+  Future<List<String>> onTypeAhead(String type) async {
+    final FlightCityRepository repository = Modular.get();
+
+    final result = await repository.getCities(type);
+    return result.success ?? [];
   }
 }

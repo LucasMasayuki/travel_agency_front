@@ -2,36 +2,30 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/models/hotel_model.dart';
 import 'package:travel_agency_front/app/services/api_service.dart';
 import 'package:travel_agency_front/app/utils/respository_result.dart';
+import 'package:travel_agency_front/app/view_data/hotel_search_view_data.dart';
 
 class HotelRepository extends Disposable {
   ApiService apiService = Modular.get();
-  Future<RepositoryResult<List<HotelModel>, String>> getNotifications({
-    int destinationId,
-    int pageNumber,
-    String checkIn,
-    String checkOut,
-    int adults1,
-    int pageSize = 25,
-    String sortOrder = "PRICE",
-  }) async {
+  Future<RepositoryResult<List<HotelModel>, String>> getHotels(
+      HotelSearchViewData hotel) async {
     try {
       final response = await apiService.get('/listHotels', queryParameters: {
-        'destinationId': destinationId,
-        'pageNumber': pageNumber,
-        'checkIn': checkIn,
-        'checkOut': checkOut,
-        'adults1': adults1,
-        'pageSize': pageSize,
-        'sortOrder': sortOrder,
+        'destinationId': hotel.destiny,
+        'pageNumber': 1,
+        'checkIn': hotel.checkIn,
+        'checkOut': hotel.checkOut,
+        'adults1': hotel.adults,
+        'pageSize': 25,
+        'sortOrder': "price",
+        'currency': 'BRL',
       });
 
-      if (response.data['status'] != 'success') {
+      if (response.statusCode != 200) {
         return RepositoryResult(
-            null, response.data['message'] ?? 'unknown error');
+            null, response.statusMessage ?? 'unknown error');
       }
-      List<HotelModel> hotels = (response.data['data'] as List)
-          .map((n) => HotelModel.fromJson(n))
-          .toList();
+      List<HotelModel> hotels =
+          (response.data as List).map((n) => HotelModel.fromJson(n)).toList();
 
       return RepositoryResult(hotels, null);
     } catch (e) {
