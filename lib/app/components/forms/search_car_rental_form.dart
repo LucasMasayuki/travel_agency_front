@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:travel_agency_front/app/components/categories_view/view_model/category_hotel_view_model.dart';
+import 'package:travel_agency_front/app/components/categories_view/view_model/category_car_rental_view_model.dart';
 import 'package:travel_agency_front/app/components/inputs/text_form_field_custom.dart';
 import 'package:travel_agency_front/app/components/search_form/search_form_widget.dart';
-import 'package:travel_agency_front/app/components/search_items/view_models/search_hotel_view_model.dart';
+import 'package:travel_agency_front/app/components/search_items/view_models/search_car_rental_view_model.dart';
 
-class SearchHotelForm extends StatelessWidget {
-  const SearchHotelForm({
+class SearchCarRentalForm extends StatelessWidget {
+  const SearchCarRentalForm({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final CategoryHotelViewModel categoryHotelViewModel = Modular.get();
-    final SearchHotelViewModel searchHotelViewModel = Modular.get();
+    final CategoryCarRentalViewModel categoryCarRentalViewModel = Modular.get();
+    final SearchCarRentalViewModel searchCarRentalViewModel = Modular.get();
 
     return SearchFormWidget(
-      formBody: _getSearchHotelsInputs(context, searchHotelViewModel),
-      onSearch: () =>
-          categoryHotelViewModel.loadHotels(searchHotelViewModel.getHotels()),
+      formBody: _getSearchHotelsInputs(context, searchCarRentalViewModel),
+      onSearch: () => categoryCarRentalViewModel
+          .loadCarRentals(searchCarRentalViewModel.getCarRental()),
     );
   }
 
   List<Widget> _getSearchHotelsInputs(
     BuildContext context,
-    SearchHotelViewModel searchHotelViewModel,
+    SearchCarRentalViewModel searchCarRentalViewModel,
   ) {
     const EdgeInsets padding = EdgeInsets.all(20);
 
@@ -48,19 +48,19 @@ class SearchHotelForm extends StatelessWidget {
                 ),
                 filled: true,
                 fillColor: Colors.white,
-                hintText: "Destino",
+                hintText: "Localização",
                 hintStyle: TextStyle(color: Colors.grey),
                 prefixIcon: Icon(Icons.flight_land),
               ),
             ),
-            suggestionsCallback: searchHotelViewModel.onTypeAhead,
+            suggestionsCallback: searchCarRentalViewModel.onTypeAhead,
             itemBuilder: (context, suggestion) {
               return ListTile(
                 leading: Icon(Icons.location_city),
                 title: Text(suggestion),
               );
             },
-            onSuggestionSelected: searchHotelViewModel.onChangeDestiny,
+            onSuggestionSelected: searchCarRentalViewModel.onChangeLocation,
           ),
         ),
       ),
@@ -72,8 +72,8 @@ class SearchHotelForm extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(right: 10),
                 child: TextFormFieldCustom(
-                  hintText: 'check in',
-                  onChanged: searchHotelViewModel.onChangeCheckIn,
+                  hintText: 'Data retirada ',
+                  onChanged: searchCarRentalViewModel.onChangeWithdrawalDate,
                   prefixIcon: Icon(Icons.calendar_today),
                 ),
               ),
@@ -82,23 +82,13 @@ class SearchHotelForm extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: TextFormFieldCustom(
-                  hintText: 'check out',
-                  onChanged: searchHotelViewModel.onChangeCheckOut,
+                  hintText: 'Data devolução',
+                  onChanged: searchCarRentalViewModel.onChangeReturnDate,
                   prefixIcon: Icon(Icons.calendar_today),
                 ),
               ),
             ),
           ],
-        ),
-      ),
-      Padding(
-        padding: padding,
-        child: Center(
-          child: TextFormFieldCustom(
-            hintText: 'Número de adultos',
-            onChanged: searchHotelViewModel.onChangeAdults,
-            prefixIcon: Icon(Icons.person),
-          ),
         ),
       ),
     ];

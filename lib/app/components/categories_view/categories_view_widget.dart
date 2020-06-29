@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:travel_agency_front/app/components/categories_view/categories_car_rental_view_widget.dart';
 import 'package:travel_agency_front/app/components/categories_view/categories_flight_view_widget.dart';
 import 'package:travel_agency_front/app/components/categories_view/categories_hotel_view_widget.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/categories_view_model.dart';
-import 'package:travel_agency_front/app/components/categories_view/view_model/category_flight_view_model.dart';
-import 'package:travel_agency_front/app/components/categories_view/view_model/category_hotel_view_model.dart';
 import 'package:travel_agency_front/app/components/empty_page/empty_page_widget.dart';
 
 class CategoriesViewWidget extends StatefulWidget {
@@ -17,13 +16,9 @@ class CategoriesViewWidget extends StatefulWidget {
 
 class _CategoriesViewWidgetState extends State<CategoriesViewWidget> {
   final CategoriesViewModel categoriesViewModel = Modular.get();
-  final CategoryFlightViewModel categoryFlightViewModel = Modular.get();
-  final CategoryHotelViewModel categoryHotelViewModel = Modular.get();
 
   @override
   Widget build(BuildContext context) {
-    categoryFlightViewModel.initialize();
-
     return Observer(builder: (_) {
       switch (categoriesViewModel.currentTab) {
         case "hotel":
@@ -33,11 +28,11 @@ class _CategoriesViewWidgetState extends State<CategoriesViewWidget> {
           return CategoriesFlightViewWidget();
 
         case "car":
+          return CategoriesCarRentalViewWidget();
           break;
-
-        default:
-          return EmptyPageWidget();
       }
+
+      return EmptyPageWidget();
     });
   }
 }

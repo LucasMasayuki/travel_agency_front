@@ -10,14 +10,14 @@ class HotelRepository extends Disposable {
       HotelSearchViewData hotel) async {
     try {
       final response = await apiService.get('/listHotels', queryParameters: {
-        'destinationId': hotel.destiny,
-        'pageNumber': 1,
+        'destiny': hotel.destiny,
         'checkIn': hotel.checkIn,
         'checkOut': hotel.checkOut,
         'adults1': hotel.adults,
+        'pageNumber': 1,
         'pageSize': 25,
-        'sortOrder': "price",
-        'currency': 'BRL',
+        'sortOrder': "PRICE",
+        'currency': "BRL",
       });
 
       if (response.statusCode != 200) {

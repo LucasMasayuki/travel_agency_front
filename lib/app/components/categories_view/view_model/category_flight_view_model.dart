@@ -1,19 +1,18 @@
 import 'package:intl/intl.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:travel_agency_front/app/components/categories_view/view_model/categories_view_model.dart';
 import 'package:travel_agency_front/app/components/item_card/flight_card.dart';
 import 'package:travel_agency_front/app/models/flight_model.dart';
 import 'package:travel_agency_front/app/repositories/flight_repository.dart';
-import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
 import 'package:travel_agency_front/app/view_data/flight_search_view_data.dart';
 import 'package:travel_agency_front/app/view_data/flight_view_data.dart';
 
 part 'category_flight_view_model.g.dart';
 
-class CategoryFlightViewModel = _CategoriesBase with _$CategoryFlightViewModel;
+class CategoryFlightViewModel = _CategoryFlightBase
+    with _$CategoryFlightViewModel;
 
-abstract class _CategoriesBase with Store {
+abstract class _CategoryFlightBase with Store {
   @observable
   List<FlightCard> flightViewData = [];
 

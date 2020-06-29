@@ -76,7 +76,7 @@ class HotelCard extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           Text(
-            "R\$ $hotel.originTitle,",
+            "R\$ ${hotel.title},",
             style: TextStyle(
               fontSize: 20,
               color: Colors.black,

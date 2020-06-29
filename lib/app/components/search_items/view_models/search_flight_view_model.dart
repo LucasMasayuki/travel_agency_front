@@ -5,9 +5,9 @@ import 'package:travel_agency_front/app/view_data/flight_search_view_data.dart';
 
 part 'search_flight_view_model.g.dart';
 
-class SearchFlightViewModel = _FlightBase with _$SearchFlightViewModel;
+class SearchFlightViewModel = _SearchFlightBase with _$SearchFlightViewModel;
 
-abstract class _FlightBase with Store {
+abstract class _SearchFlightBase with Store {
   @observable
   int adults = 1;
 

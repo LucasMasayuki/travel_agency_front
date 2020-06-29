@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:travel_agency_front/app/view_data/flight_view_data.dart';
+import 'package:travel_agency_front/app/view_data/car_rental_view_data.dart';
 
-class FlightCard extends StatelessWidget {
-  final FlightViewData flight;
-  const FlightCard({
+class CarRentalCard extends StatelessWidget {
+  final CarRentalViewData cardRental;
+  const CarRentalCard({
     Key key,
-    @required this.flight,
+    @required this.cardRental,
   }) : super(key: key);
 
   List<Widget> getCardBody() {
@@ -20,7 +20,7 @@ class FlightCard extends StatelessWidget {
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
-          flight.originTitle,
+          cardRental.originTitle,
           style: TextStyle(fontSize: 16),
         ),
       ),
@@ -31,7 +31,7 @@ class FlightCard extends StatelessWidget {
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
-          flight.originTitle,
+          cardRental.originTitle,
           style: TextStyle(fontSize: 28),
         ),
       ),
@@ -43,7 +43,7 @@ class FlightCard extends StatelessWidget {
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
-          flight.originTitle,
+          cardRental.originTitle,
           style: TextStyle(
             fontSize: 16,
             color: Colors.black,
@@ -52,7 +52,7 @@ class FlightCard extends StatelessWidget {
       ),
     );
 
-    print(flight.originTitle);
+    print(cardRental.originTitle);
 
     Widget priceWidget = Container(
       decoration: BoxDecoration(
@@ -78,7 +78,7 @@ class FlightCard extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           Text(
-            "R\$ ${flight.originTitle}",
+            "R\$ ${cardRental.originTitle},",
             style: TextStyle(
               fontSize: 20,
               color: Colors.black,
@@ -97,6 +97,11 @@ class FlightCard extends StatelessWidget {
     cardBody.add(Expanded(
       child: titleWidget,
       flex: 3,
+    ));
+
+    cardBody.add(Expanded(
+      child: descriptionWidget,
+      flex: 4,
     ));
 
     cardBody.add(Expanded(

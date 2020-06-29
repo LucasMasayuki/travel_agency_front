@@ -42,6 +42,10 @@ class FlightModel {
   });
 
   factory FlightModel.fromJson(Map<String, dynamic> json) {
+    Map<int, String> going = json[0].value;
+    Map<int, String> returnMap = json[1].value;
+    Map<int, String> tariff = json[2].value;
+    var ass = going["duracao"];
     return FlightModel(
       goingDuration: json["ida"]["duracao"],
       goingOrigin: json["ida"]["origem"],

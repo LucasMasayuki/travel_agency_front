@@ -4,15 +4,14 @@ import 'package:mobx/mobx.dart';
 import 'package:travel_agency_front/app/components/item_card/hotel_card.dart';
 import 'package:travel_agency_front/app/models/hotel_model.dart';
 import 'package:travel_agency_front/app/repositories/hotel_repository.dart';
-import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
 import 'package:travel_agency_front/app/view_data/hotel_search_view_data.dart';
 import 'package:travel_agency_front/app/view_data/hotel_view_date.dart';
 
 part 'category_hotel_view_model.g.dart';
 
-class CategoryHotelViewModel = _CategoriesBase with _$CategoryHotelViewModel;
+class CategoryHotelViewModel = _CategoryHotelBase with _$CategoryHotelViewModel;
 
-abstract class _CategoriesBase with Store {
+abstract class _CategoryHotelBase with Store {
   @observable
   List<HotelCard> hotelViewData = [];
 
@@ -67,8 +66,8 @@ abstract class _CategoriesBase with Store {
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     return HotelSearchViewData(
       adults: 1,
-      checkIn: formattedDate,
-      checkOut: formattedDate,
+      checkIn: "2020-07-20",
+      checkOut: "2020-07-30",
       destiny: "Posadas, Misiones, Argentina",
     );
   }

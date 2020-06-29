@@ -72,12 +72,19 @@ class SearchFlightForm extends StatelessWidget {
         child: Center(
           child: TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
-              autofocus: true,
               style: DefaultTextStyle.of(context)
                   .style
                   .copyWith(fontStyle: FontStyle.italic),
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(32.0),
+                  ),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                hintText: "Destino",
+                hintStyle: TextStyle(color: Colors.grey),
                 prefixIcon: Icon(Icons.flight_land),
               ),
             ),
@@ -97,12 +104,19 @@ class SearchFlightForm extends StatelessWidget {
         child: Center(
           child: TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
-              autofocus: true,
               style: DefaultTextStyle.of(context)
                   .style
                   .copyWith(fontStyle: FontStyle.italic),
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(32.0),
+                  ),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                hintText: "Origem",
+                hintStyle: TextStyle(color: Colors.grey),
                 prefixIcon: Icon(Icons.flight_land),
               ),
             ),
