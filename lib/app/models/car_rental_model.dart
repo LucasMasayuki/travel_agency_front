@@ -6,20 +6,13 @@ class CarRentalModel {
   double total;
   CarModel car;
 
-  CarRentalModel({
-    company,
-    placeWithdrawn,
-    total,
-    car,
-  });
+  CarRentalModel();
 
-  factory CarRentalModel.fromJson(Map<String, dynamic> json) {
-    return CarRentalModel(
-      company: json["carOffer"]["empresa"],
-      placeWithdrawn: json["carOffer"]["localRetirada"],
-      total: json["carOffer"]["valorTotal"],
-      car: CarModel.fromJson(json["carOffer"]["carro"]),
-    );
+  CarRentalModel.fromJson(Map<String, dynamic> json) {
+    company = json["carOffer"]["empresa"];
+    placeWithdrawn = json["carOffer"]["localRetirada"];
+    total = json["carOffer"]["valorTotal"];
+    car = CarModel.fromJson(json["carOffer"]["carro"]);
   }
 
   Map<String, dynamic> toJson() => {};

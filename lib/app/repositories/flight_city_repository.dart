@@ -6,7 +6,7 @@ import 'package:travel_agency_front/app/utils/respository_result.dart';
 class FlightCityRepository implements CityRepositoryAbstract {
   ApiService apiService = Modular.get();
 
-  Future<RepositoryResult<List<String>, String>> getCities(String city) async {
+  Future<RepositoryResult<List<dynamic>, String>> getCities(String city) async {
     try {
       final response = await apiService.get('/citiesFlights', queryParameters: {
         'like': city,
@@ -17,9 +17,7 @@ class FlightCityRepository implements CityRepositoryAbstract {
             null, response.statusMessage ?? 'unknown error');
       }
 
-      List<String> cities = (response.data as List).toList();
-
-      return RepositoryResult(cities, null);
+      return RepositoryResult(response.data, null);
     } catch (e) {
       return RepositoryResult(null, e.toString());
     }

@@ -28,6 +28,7 @@ class SearchHotelForm extends StatelessWidget {
     SearchHotelViewModel searchHotelViewModel,
   ) {
     const EdgeInsets padding = EdgeInsets.all(20);
+    TextEditingController destinyController = TextEditingController();
 
     return [
       Padding(
@@ -37,6 +38,7 @@ class SearchHotelForm extends StatelessWidget {
             noItemsFoundBuilder: (BuildContext context) => Container(),
             loadingBuilder: (BuildContext context) => Container(),
             textFieldConfiguration: TextFieldConfiguration(
+              controller: destinyController,
               style: DefaultTextStyle.of(context)
                   .style
                   .copyWith(fontStyle: FontStyle.italic),
@@ -60,7 +62,10 @@ class SearchHotelForm extends StatelessWidget {
                 title: Text(suggestion),
               );
             },
-            onSuggestionSelected: searchHotelViewModel.onChangeDestiny,
+            onSuggestionSelected: (suggestion) {
+              searchHotelViewModel.onChangeDestiny(suggestion);
+              destinyController.text = suggestion;
+            },
           ),
         ),
       ),

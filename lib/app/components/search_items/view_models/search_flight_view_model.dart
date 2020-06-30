@@ -58,7 +58,7 @@ abstract class _SearchFlightBase with Store {
     );
   }
 
-  Future<List<String>> onTypeAhead(String type) async {
+  Future<List<dynamic>> onTypeAhead(String type) async {
     final FlightCityRepository repository = Modular.get();
 
     final result = await repository.getCities(type);

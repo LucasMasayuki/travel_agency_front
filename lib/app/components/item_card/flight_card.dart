@@ -20,7 +20,7 @@ class FlightCard extends StatelessWidget {
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
-          flight.originTitle,
+          flight.backOrigin,
           style: TextStyle(fontSize: 16),
         ),
       ),
@@ -31,7 +31,7 @@ class FlightCard extends StatelessWidget {
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
-          flight.originTitle,
+          flight.backOrigin,
           style: TextStyle(fontSize: 28),
         ),
       ),
@@ -43,7 +43,7 @@ class FlightCard extends StatelessWidget {
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
-          flight.originTitle,
+          flight.backOrigin,
           style: TextStyle(
             fontSize: 16,
             color: Colors.black,
@@ -52,7 +52,9 @@ class FlightCard extends StatelessWidget {
       ),
     );
 
-    print(flight.originTitle);
+    print(
+      flight.backOrigin,
+    );
 
     Widget priceWidget = Container(
       decoration: BoxDecoration(
@@ -78,7 +80,7 @@ class FlightCard extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           Text(
-            "R\$ ${flight.originTitle}",
+            "R\$ ${flight.backOrigin}",
             style: TextStyle(
               fontSize: 20,
               color: Colors.black,

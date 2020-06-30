@@ -4,7 +4,12 @@ import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
 class HotelViewData implements RowViewDataAbstract {
   final HotelModel hotel;
 
-  String get title => hotel.name;
+  int get id => hotel.id;
+  String get hotelName => hotel.name;
+  String get neighborhoodCity => hotel.neighborhoodCity;
+  int get stars => hotel.stars;
+  String get pricePerNight => hotel.pricePerNight;
+  String get total => hotel.total;
 
   HotelViewData({this.hotel});
 }

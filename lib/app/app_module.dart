@@ -2,6 +2,7 @@ import 'package:travel_agency_front/app/components/categories_view/view_model/ca
 import 'package:travel_agency_front/app/components/categories_view/view_model/category_car_rental_view_model.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/category_flight_view_model.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/category_hotel_view_model.dart';
+import 'package:travel_agency_front/app/components/front_layer/front_layer_view_model.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_flight_view_model.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_hotel_view_model.dart';
 import 'package:travel_agency_front/app/repositories/car_rental_repository.dart';
@@ -35,6 +36,7 @@ class AppModule extends MainModule {
         Bind((i) => SearchFlightViewModel()),
         Bind((i) => CategoryHotelViewModel()),
         Bind((i) => SearchHotelViewModel()),
+        Bind((i) => FrontLayerViewModel()),
       ];
 
   @override

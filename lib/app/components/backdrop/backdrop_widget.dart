@@ -46,18 +46,6 @@ class _BackdropWidgetState extends State<BackdropWidget>
     );
   }
 
-  /*
-  @override
-  void didUpdateWidget(BackdropWidget old) {
-    super.didUpdateWidget(old);
-
-    if (widget.currentCategory != old.currentCategory) {
-      _toggleBackdropLayerVisibility();
-    } else if (!_frontLayerVisible) {
-      _controller.fling(velocity: _kFlingVelocity);
-    }
-  }*/
-
   @override
   void dispose() {
     _tabController.dispose();

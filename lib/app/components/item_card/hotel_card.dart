@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_agency_front/app/view_data/hotel_view_date.dart';
+import 'package:travel_agency_front/app/view_data/hotel_view_data.dart';
 
 class HotelCard extends StatelessWidget {
   final HotelViewData hotel;
@@ -11,27 +11,12 @@ class HotelCard extends StatelessWidget {
   List<Widget> getCardBody() {
     List<Widget> cardBody = [];
 
-    Widget categoryNameWidget = Container(
-      margin: EdgeInsets.only(
-        top: 10,
-        left: 10,
-        right: 10,
-      ),
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Text(
-          hotel.title,
-          style: TextStyle(fontSize: 16),
-        ),
-      ),
-    );
-
     Widget titleWidget = Container(
       margin: EdgeInsets.all(10),
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
-          hotel.title,
+          hotel.hotelName,
           style: TextStyle(fontSize: 28),
         ),
       ),
@@ -43,7 +28,7 @@ class HotelCard extends StatelessWidget {
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
-          hotel.title,
+          hotel.neighborhoodCity,
           style: TextStyle(
             fontSize: 16,
             color: Colors.black,
@@ -67,16 +52,19 @@ class HotelCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "A partir de",
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
+          Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Text(
+              '${hotel.pricePerNight} por noite',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.left,
             ),
-            textAlign: TextAlign.left,
           ),
           Text(
-            "R\$ ${hotel.title},",
+            hotel.total,
             style: TextStyle(
               fontSize: 20,
               color: Colors.black,
@@ -86,11 +74,6 @@ class HotelCard extends StatelessWidget {
         ],
       ),
     );
-
-    cardBody.add(Expanded(
-      child: categoryNameWidget,
-      flex: 1,
-    ));
 
     cardBody.add(Expanded(
       child: titleWidget,
@@ -115,11 +98,11 @@ class HotelCard extends StatelessWidget {
     List<Widget> cardBody = getCardBody();
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(50.0),
       ),
       elevation: 2,
       child: Container(
-        width: 250,
+        padding: EdgeInsets.all(20),
         child: Column(
           children: cardBody,
           mainAxisAlignment: MainAxisAlignment.end,

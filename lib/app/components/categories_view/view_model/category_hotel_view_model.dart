@@ -5,7 +5,7 @@ import 'package:travel_agency_front/app/components/item_card/hotel_card.dart';
 import 'package:travel_agency_front/app/models/hotel_model.dart';
 import 'package:travel_agency_front/app/repositories/hotel_repository.dart';
 import 'package:travel_agency_front/app/view_data/hotel_search_view_data.dart';
-import 'package:travel_agency_front/app/view_data/hotel_view_date.dart';
+import 'package:travel_agency_front/app/view_data/hotel_view_data.dart';
 
 part 'category_hotel_view_model.g.dart';
 

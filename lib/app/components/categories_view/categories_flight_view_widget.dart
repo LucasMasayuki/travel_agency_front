@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/categories_view_model.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/category_flight_view_model.dart';
 import 'package:travel_agency_front/app/components/empty_page/empty_page_widget.dart';
+import 'package:travel_agency_front/app/components/front_layer/front_layer_view_model.dart';
 import 'package:travel_agency_front/app/components/loading_page/loading_page_widget.dart';
 
 class CategoriesFlightViewWidget extends StatefulWidget {
@@ -28,6 +29,8 @@ class _CategoriesFlightViewWidgetState
         return LoadingPageWidget();
       }
 
+      _loadClickableWidgetOnFrontLayer(categoryFlightViewModel);
+
       if (categoryFlightViewModel.isEmptyPage) {
         return EmptyPageWidget();
       }
@@ -39,5 +42,16 @@ class _CategoriesFlightViewWidgetState
         children: categoryFlightViewModel.flightViewData,
       );
     });
+  }
+
+  void _loadClickableWidgetOnFrontLayer(
+      CategoryFlightViewModel categoryFlightViewModel) {
+    final FrontLayerViewModel frontLayerViewModel = Modular.get();
+
+    Text clicakbleWidget = Text(
+      "${categoryFlightViewModel.flightViewData.length - 1} voos encontrados",
+    );
+
+    frontLayerViewModel.onLoadFrontView(clicakbleWidget);
   }
 }

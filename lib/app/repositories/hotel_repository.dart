@@ -24,8 +24,10 @@ class HotelRepository extends Disposable {
         return RepositoryResult(
             null, response.statusMessage ?? 'unknown error');
       }
-      List<HotelModel> hotels =
-          (response.data as List).map((n) => HotelModel.fromJson(n)).toList();
+
+      List<HotelModel> hotels = (response.data["hoteis"] as List)
+          .map((hotel) => HotelModel.fromJson(hotel))
+          .toList();
 
       return RepositoryResult(hotels, null);
     } catch (e) {
