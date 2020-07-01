@@ -1,3 +1,4 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/categories_view_model.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/category_car_rental_view_model.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/category_flight_view_model.dart';
@@ -12,7 +13,6 @@ import 'package:travel_agency_front/app/repositories/hotel_repository.dart';
 import 'package:travel_agency_front/app/repositories/flight_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:travel_agency_front/app/services/api_service.dart';
-import 'package:travel_agency_front/app/app_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_agency_front/app/app_widget.dart';
@@ -29,7 +29,6 @@ class AppModule extends MainModule {
         Bind((i) => FlightRepository()),
         Bind((i) => ApiService(Dio())),
         Bind((i) => ApiSoapService()),
-        Bind((i) => AppController()),
         Bind((i) => CategoriesViewModel()),
         Bind((i) => CategoryFlightViewModel()),
         Bind((i) => CategoryCarRentalViewModel()),

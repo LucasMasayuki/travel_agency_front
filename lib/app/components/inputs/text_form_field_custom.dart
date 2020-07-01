@@ -4,6 +4,7 @@ class TextFormFieldCustom extends StatelessWidget {
   final String errorText;
   final String hintText;
   final Function onChanged;
+  final Function onTap;
   final TextInputType keyboardType;
   final int maxLength;
   final controller;
@@ -25,6 +26,7 @@ class TextFormFieldCustom extends StatelessWidget {
     this.textCapitalization,
     this.contentPadding,
     this.prefixIcon,
+    this.onTap,
     this.obscureText = false,
   }) : super(key: key);
 
@@ -51,6 +53,8 @@ class TextFormFieldCustom extends StatelessWidget {
       ),
       controller: controller,
       obscureText: obscureText,
+      inputFormatters: this.inputFormatters,
+      onTap: this.onTap,
       onChanged: this.onChanged,
     );
   }

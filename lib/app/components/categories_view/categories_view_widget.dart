@@ -22,14 +22,13 @@ class _CategoriesViewWidgetState extends State<CategoriesViewWidget> {
     return Observer(builder: (_) {
       switch (categoriesViewModel.currentTab) {
         case "hotel":
-          return CategoriesHotelViewWidget();
+          return CategoriesCarRentalViewWidget();
 
         case "flight":
           return CategoriesFlightViewWidget();
 
         case "car":
           return CategoriesCarRentalViewWidget();
-          break;
       }
 
       return EmptyPageWidget();

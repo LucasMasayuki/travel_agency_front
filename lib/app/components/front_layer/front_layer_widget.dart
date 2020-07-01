@@ -17,36 +17,35 @@ class FrontLayerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     FrontLayerViewModel frontLayerViewModel = Modular.get();
 
-    return Observer(builder: (_) {
-      return Material(
-        elevation: 16.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(40.0),
-            topRight: Radius.circular(40.0),
-          ),
+    return Material(
+      elevation: 16.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(40.0),
+          topRight: Radius.circular(40.0),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: onTap,
-              child: Container(
-                height: 40.0,
-                alignment: AlignmentDirectional.centerStart,
-                child: Align(
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onTap,
+            child: Container(
+              height: 40.0,
+              alignment: AlignmentDirectional.centerStart,
+              child: Align(
                   alignment: Alignment.center,
-                  child: frontLayerViewModel.clickableWidget,
-                ),
-              ),
+                  child: Observer(builder: (_) {
+                    return frontLayerViewModel.clickableWidget;
+                  })),
             ),
-            Expanded(
-              child: child,
-            ),
-          ],
-        ),
-      );
-    });
+          ),
+          Expanded(
+            child: child,
+          ),
+        ],
+      ),
+    );
   }
 }

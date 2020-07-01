@@ -16,8 +16,12 @@ abstract class _CategoryHotelBase with Store {
   List<HotelCard> hotelViewData = [];
 
   @observable
+  bool initialized = false;
+
+  @observable
   bool isLoading = true;
 
+  @observable
   String errorMessage;
 
   @computed
@@ -25,11 +29,12 @@ abstract class _CategoryHotelBase with Store {
 
   @computed
   bool get hasError =>
-      isLoading && errorMessage != null && errorMessage.isNotEmpty;
+      !isLoading && errorMessage != null && errorMessage.isNotEmpty;
 
   @action
   Future<void> initialize() {
     HotelSearchViewData hotel = _getInitialHotel();
+    initialized = true;
 
     return loadHotels(hotel);
   }

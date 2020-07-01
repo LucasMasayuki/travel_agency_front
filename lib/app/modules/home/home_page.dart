@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
             alignment: Alignment.center,
             child: Column(
               children: [
-                Icon(Icons.camera_roll),
+                Icon(Icons.directions_car),
                 Text(
                   "Vericulos",
                 )

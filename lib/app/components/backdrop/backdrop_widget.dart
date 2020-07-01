@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
 import 'package:travel_agency_front/app/components/backdrop_title/backdrop_title_widget.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/categories_view_model.dart';
 import 'package:travel_agency_front/app/components/front_layer/front_layer_widget.dart';
+import 'package:travel_agency_front/app/components/search_items/view_models/search_item_view_model.dart';
 
 const double _kFlingVelocity = 2.0;
 
@@ -102,6 +105,11 @@ class _BackdropWidgetState extends State<BackdropWidget>
 
   @override
   Widget build(BuildContext context) {
+    final SearchItemViewModel searchItemViewModel = Modular.get();
+
+    Observable isSearching = Observable(searchItemViewModel.isSearching);
+    when((_) => isSearching.value == true, _toggleBackdropLayerVisibility);
+
     var appBar = AppBar(
       elevation: 0.0,
       title: BackdropTitleWidget(

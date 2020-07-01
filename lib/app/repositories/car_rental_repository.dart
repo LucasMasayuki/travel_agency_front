@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/models/flight_model.dart';
 import 'package:travel_agency_front/app/services/api_soap_service.dart';
@@ -11,19 +12,21 @@ class CarRentalRepository extends Disposable {
       CarRentalSearchViewData carRental) async {
     String envelope = _getFormattedEnvelpe(carRental);
     try {
-      final response =
-          await apiSoapService.get('/ws/carrentoffer.wsdl', envelope);
+      final response = await apiSoapService.get(
+        'ws/carrentoffer',
+        envelope,
+      );
 
       if (response.statusCode != 200) {
         return RepositoryResult(
             null, response.statusMessage ?? 'unknown error');
       }
 
-      List<FlightModel> flights = (response.data as List)
+      List<FlightModel> carRentals = (response.data as List)
           .map((flight) => FlightModel.fromJson(flight))
           .toList();
 
-      return RepositoryResult(flights, null);
+      return RepositoryResult(carRentals, null);
     } catch (e) {
       return RepositoryResult(null, e.toString());
     }
@@ -31,9 +34,6 @@ class CarRentalRepository extends Disposable {
 
   String _getFormattedEnvelpe(CarRentalSearchViewData carRental) {
     String envelope = '''
-      <?xml version="1.0" encoding="utf-8"?>
-      https://voyage-dsid.herokuapp.com/ws/carrentoffer.wsdl
-
       <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
                 xmlns:gs="http://voyage.com/carrentoffers">
         <soapenv:Header/>
@@ -47,7 +47,7 @@ class CarRentalRepository extends Disposable {
       </soapenv:Envelope>
     ''';
 
-    return envelope;
+    return envelope.trim();
   }
 
   //dispose will be called automatically

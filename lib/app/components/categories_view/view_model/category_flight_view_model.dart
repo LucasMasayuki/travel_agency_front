@@ -17,7 +17,10 @@ abstract class _CategoryFlightBase with Store {
   List<FlightCard> flightViewData = [];
 
   @observable
-  bool isLoading;
+  bool initialized = false;
+
+  @observable
+  bool isLoading = true;
 
   @observable
   String errorMessage;
@@ -32,6 +35,7 @@ abstract class _CategoryFlightBase with Store {
   @action
   Future<void> initialize() async {
     FlightSearchViewData flight = _getInitialFlight();
+    initialized = true;
 
     return loadFlights(flight);
   }

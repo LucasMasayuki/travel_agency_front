@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/models/hotel_model.dart';
 import 'package:travel_agency_front/app/services/api_service.dart';
@@ -30,7 +31,8 @@ class HotelRepository extends Disposable {
           .toList();
 
       return RepositoryResult(hotels, null);
-    } catch (e) {
+    } on DioError catch (e) {
+      print(e.request.uri);
       return RepositoryResult(null, e.toString());
     }
   }

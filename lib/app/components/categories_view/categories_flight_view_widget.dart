@@ -22,7 +22,9 @@ class _CategoriesFlightViewWidgetState
 
   @override
   Widget build(BuildContext context) {
-    categoryFlightViewModel.initialize();
+    if (!categoryFlightViewModel.initialized) {
+      categoryFlightViewModel.initialize();
+    }
 
     return Observer(builder: (_) {
       if (categoryFlightViewModel.isLoading) {
@@ -36,9 +38,11 @@ class _CategoriesFlightViewWidgetState
       }
 
       return GridView.count(
-        childAspectRatio: (300 / 500),
+        childAspectRatio: (200 / 300),
         shrinkWrap: true,
-        crossAxisCount: 2,
+        crossAxisCount: 3,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
         children: categoryFlightViewModel.flightViewData,
       );
     });

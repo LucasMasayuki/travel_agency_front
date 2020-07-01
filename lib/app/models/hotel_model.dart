@@ -4,6 +4,7 @@ class HotelModel {
   String neighborhoodCity;
   int stars;
   String pricePerNight;
+  String photo;
   String total;
 
   HotelModel();
@@ -12,6 +13,7 @@ class HotelModel {
     id = json["id"];
     name = json["nome"];
     neighborhoodCity = json["bairroCidade"];
+    photo = json["imagemUrl"];
     stars = json["estrelas"];
     pricePerNight = json["precoNoite"];
     total = json["precoTotal"];

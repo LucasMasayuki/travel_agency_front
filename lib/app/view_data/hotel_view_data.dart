@@ -8,6 +8,7 @@ class HotelViewData implements RowViewDataAbstract {
   String get hotelName => hotel.name;
   String get neighborhoodCity => hotel.neighborhoodCity;
   int get stars => hotel.stars;
+  String get photo => hotel.photo;
   String get pricePerNight => hotel.pricePerNight;
   String get total => hotel.total;
 
