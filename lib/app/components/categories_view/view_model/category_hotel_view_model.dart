@@ -2,8 +2,10 @@ import 'package:intl/intl.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:travel_agency_front/app/components/item_card/hotel_card.dart';
+import 'package:travel_agency_front/app/interfaces/category_view_model_inferface.dart';
 import 'package:travel_agency_front/app/models/hotel_model.dart';
 import 'package:travel_agency_front/app/repositories/hotel_repository.dart';
+import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
 import 'package:travel_agency_front/app/view_data/hotel_search_view_data.dart';
 import 'package:travel_agency_front/app/view_data/hotel_view_data.dart';
 
@@ -11,7 +13,9 @@ part 'category_hotel_view_model.g.dart';
 
 class CategoryHotelViewModel = _CategoryHotelBase with _$CategoryHotelViewModel;
 
-abstract class _CategoryHotelBase with Store {
+abstract class _CategoryHotelBase
+    with Store
+    implements CategoryViewModelInterface {
   @observable
   List<HotelCard> hotelViewData = [];
 
@@ -36,17 +40,18 @@ abstract class _CategoryHotelBase with Store {
     HotelSearchViewData hotel = _getInitialHotel();
     initialized = true;
 
-    return loadHotels(hotel);
+    return loadCategoryData(hotel);
   }
 
   @action
-  Future<void> loadHotels(HotelSearchViewData hotel) async {
+  Future<void> loadCategoryData(RowViewDataAbstract hotel) async {
     final HotelRepository repository = Modular.get();
 
     isLoading = true;
     final result = await repository.getHotels(hotel);
     final viewDataList = _buildViewData(result.success ?? []);
 
+    hotelViewData = [];
     hotelViewData.addAll(viewDataList);
     errorMessage = result.error;
     isLoading = false;

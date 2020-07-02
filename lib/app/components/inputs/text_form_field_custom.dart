@@ -5,22 +5,26 @@ class TextFormFieldCustom extends StatelessWidget {
   final String hintText;
   final Function onChanged;
   final Function onTap;
+  final Function validator;
   final TextInputType keyboardType;
   final int maxLength;
   final controller;
   final textCapitalization;
   final inputFormatters;
   final contentPadding;
+  final initialValue;
   final bool obscureText;
   final Icon prefixIcon;
 
   const TextFormFieldCustom({
     Key key,
     this.errorText,
+    this.initialValue,
     this.onChanged,
     this.hintText,
     this.keyboardType,
     this.controller,
+    this.validator,
     this.maxLength,
     this.inputFormatters,
     this.textCapitalization,
@@ -33,6 +37,7 @@ class TextFormFieldCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: this.initialValue,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: const BorderRadius.all(
@@ -51,6 +56,7 @@ class TextFormFieldCustom extends StatelessWidget {
         color: Colors.black,
         fontFamily: "Poppins",
       ),
+      validator: this.validator,
       controller: controller,
       obscureText: obscureText,
       inputFormatters: this.inputFormatters,

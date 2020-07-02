@@ -1,22 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_agency_front/app/utils/media_helper.dart';
 import 'package:travel_agency_front/app/view_data/hotel_view_data.dart';
 
 class HotelCard extends StatelessWidget {
   final HotelViewData hotel;
+
   const HotelCard({
     Key key,
     @required this.hotel,
   }) : super(key: key);
 
-  List<Widget> getCardBody() {
+  List<Widget> getCardBody(BuildContext context) {
+    final bool isMobile = MediaHelper.isMobile(context);
+
     List<Widget> cardBody = [];
 
     Widget imgWidget = _getImageWidget();
-    Widget titleWidget = _getTitleWidget();
-    Widget locationWidget = _getLocationWidget();
+    Widget titleWidget = _getTitleWidget(isMobile);
+    Widget locationWidget = _getLocationWidget(isMobile);
     Widget starsWidget = _getStarsWidget();
-    Widget priceWidget = _getPriceWidget();
+    Widget priceWidget = _getPriceWidget(isMobile);
 
     cardBody.add(Expanded(
       child: Stack(
@@ -50,7 +54,7 @@ class HotelCard extends StatelessWidget {
     return cardBody;
   }
 
-  Widget _getPriceWidget() {
+  Widget _getPriceWidget(bool isMobile) {
     Widget priceWidget = Container(
       decoration: BoxDecoration(
         border: Border(
@@ -70,7 +74,7 @@ class HotelCard extends StatelessWidget {
             child: Text(
               '${hotel.pricePerNight} por noite',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: isMobile ? 10 : 14,
                 color: Colors.black,
               ),
               textAlign: TextAlign.right,
@@ -79,7 +83,7 @@ class HotelCard extends StatelessWidget {
           Text(
             hotel.total,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: isMobile ? 16 : 20,
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
@@ -101,7 +105,7 @@ class HotelCard extends StatelessWidget {
               child: Icon(
                 Icons.star,
                 size: 24,
-                color: Colors.yellowAccent,
+                color: Colors.yellow[600],
               ),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -115,7 +119,7 @@ class HotelCard extends StatelessWidget {
     return starsWidget;
   }
 
-  Widget _getLocationWidget() {
+  Widget _getLocationWidget(bool isMobile) {
     Widget locationWidget = Container(
       margin: EdgeInsets.only(left: 10),
       height: 30,
@@ -124,7 +128,7 @@ class HotelCard extends StatelessWidget {
         child: Text(
           "Locallização: ${hotel.neighborhoodCity}",
           style: TextStyle(
-            fontSize: 16,
+            fontSize: isMobile ? 12 : 16,
             color: Colors.black,
           ),
         ),
@@ -133,14 +137,17 @@ class HotelCard extends StatelessWidget {
     return locationWidget;
   }
 
-  Widget _getTitleWidget() {
+  Widget _getTitleWidget(bool isMobile) {
     Widget titleWidget = Container(
       margin: EdgeInsets.only(top: 15, left: 10),
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
           hotel.hotelName,
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: isMobile ? 22 : 28,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -201,17 +208,21 @@ class HotelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> cardBody = getCardBody();
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.0),
-      ),
-      elevation: 2,
-      child: Container(
-        child: Column(
-          children: cardBody,
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+    List<Widget> cardBody = getCardBody(context);
+
+    return GestureDetector(
+      onTap: () => {Navigator.pushNamed(context, '/hotelDetail')},
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        elevation: 2,
+        child: Container(
+          child: Column(
+            children: cardBody,
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+          ),
         ),
       ),
     );

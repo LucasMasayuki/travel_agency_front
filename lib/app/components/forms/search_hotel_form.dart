@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:travel_agency_front/app/components/buttons/search_form_button.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/category_hotel_view_model.dart';
 import 'package:travel_agency_front/app/components/date_picker_field/date_picker_field.dart';
 import 'package:travel_agency_front/app/components/inputs/text_form_field_custom.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_hotel_view_model.dart';
-import 'package:travel_agency_front/app/components/search_items/view_models/search_item_view_model.dart';
 
 class SearchHotelForm extends StatelessWidget {
   const SearchHotelForm({
@@ -16,15 +16,18 @@ class SearchHotelForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final SearchHotelViewModel searchHotelViewModel = Modular.get();
 
-    List<Widget> formBody =
-        _getSearchHotelsInputs(context, searchHotelViewModel);
+    List<Widget> formBody = _getSearchHotelsInputs(
+      context,
+      searchHotelViewModel,
+    );
 
     formBody.add(_searchButton(searchHotelViewModel));
 
     return Form(
-        child: ListView(
-      children: formBody,
-    ));
+      child: ListView(
+        children: formBody,
+      ),
+    );
   }
 
   List<Widget> _getSearchHotelsInputs(
@@ -51,9 +54,15 @@ class SearchHotelForm extends StatelessWidget {
         padding: padding,
         child: Center(
           child: TextFormFieldCustom(
+            keyboardType: TextInputType.number,
             hintText: 'Número de adultos',
             onChanged: searchHotelViewModel.onChangeAdults,
             prefixIcon: Icon(Icons.person),
+            validator: (_) {
+              return !searchHotelViewModel.isValidAdults()
+                  ? 'Preencha o número de adultos'
+                  : null;
+            },
           ),
         ),
       ),
@@ -62,21 +71,12 @@ class SearchHotelForm extends StatelessWidget {
 
   Widget _searchButton(SearchHotelViewModel searchHotelViewModel) {
     final CategoryHotelViewModel categoryHotelViewModel = Modular.get();
-    final SearchItemViewModel searchItemViewModel = Modular.get();
 
     return Container(
       margin: const EdgeInsets.only(bottom: 70, left: 20, right: 20, top: 20),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        onPressed: () {
-          categoryHotelViewModel.loadHotels(searchHotelViewModel.getHotels());
-          searchItemViewModel.onSearch(true);
-        },
-        child: Text('Procurar'),
-        color: Colors.orange[400],
-        textColor: Colors.white,
+      child: SearchFormButton(
+        categoryViewModel: categoryHotelViewModel,
+        searchViewModel: searchHotelViewModel,
       ),
     );
   }
@@ -125,7 +125,6 @@ class SearchHotelForm extends StatelessWidget {
       BuildContext context, SearchHotelViewModel searchHotelViewModel) {
     TextEditingController checkInController = TextEditingController();
     TextEditingController checkOutController = TextEditingController();
-
     Widget rowCheckinOut = Row(
       children: [
         Expanded(
@@ -135,6 +134,11 @@ class SearchHotelForm extends StatelessWidget {
               hintText: 'check in',
               onChanged: searchHotelViewModel.onChangeCheckIn,
               controller: checkInController,
+              validator: (_) {
+                return !searchHotelViewModel.isValidCheckIn()
+                    ? 'Preencha o check in'
+                    : null;
+              },
             ),
           ),
         ),
@@ -145,6 +149,11 @@ class SearchHotelForm extends StatelessWidget {
               hintText: 'check out',
               onChanged: searchHotelViewModel.onChangeCheckOut,
               controller: checkOutController,
+              validator: (_) {
+                return !searchHotelViewModel.isValidCheckOut()
+                    ? 'Preencha o check out'
+                    : null;
+              },
             ),
           ),
         ),

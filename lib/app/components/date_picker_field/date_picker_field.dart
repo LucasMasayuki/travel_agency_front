@@ -7,6 +7,8 @@ import 'package:travel_agency_front/app/components/inputs/text_form_field_custom
 class DatePickerField extends StatelessWidget {
   final String hintText;
   final Function onChanged;
+  final Function validator;
+  final String initialValue;
   final TextEditingController controller;
 
   const DatePickerField({
@@ -14,6 +16,8 @@ class DatePickerField extends StatelessWidget {
     @required this.onChanged,
     @required this.hintText,
     @required this.controller,
+    this.validator,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -21,8 +25,10 @@ class DatePickerField extends StatelessWidget {
     DateTime currentTime = DateTime.now();
 
     return TextFormFieldCustom(
-      hintText: 'check out',
-      onChanged: onChanged,
+      controller: this.controller,
+      initialValue: this.initialValue,
+      validator: this.validator,
+      hintText: this.hintText,
       prefixIcon: Icon(Icons.calendar_today),
       inputFormatters: [MaskTextInputFormatter(mask: "##/##/####")],
       onTap: () {
@@ -33,10 +39,13 @@ class DatePickerField extends StatelessWidget {
           minTime: DateTime(now.year, now.month, now.day),
           maxTime: DateTime(now.year + 30, now.month, now.day),
           onConfirm: (date) {
-            DateFormat formatter = new DateFormat('dd/MM/yyyy');
             var _date = date;
-            controller.text = formatter.format(date);
-            onChanged(_date);
+            DateFormat formatter = new DateFormat('dd/MM/yyyy');
+            String dateString = formatter.format(date);
+            this.controller.text = dateString;
+            formatter = new DateFormat('yyyy-MM-dd');
+            dateString = formatter.format(_date);
+            this.onChanged(dateString);
           },
           currentTime: currentTime,
           locale: LocaleType.pt,

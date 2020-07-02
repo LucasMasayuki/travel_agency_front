@@ -107,8 +107,10 @@ class _BackdropWidgetState extends State<BackdropWidget>
   Widget build(BuildContext context) {
     final SearchItemViewModel searchItemViewModel = Modular.get();
 
-    Observable isSearching = Observable(searchItemViewModel.isSearching);
-    when((_) => isSearching.value == true, _toggleBackdropLayerVisibility);
+    final dispose = reaction(
+      (_) => Observable(searchItemViewModel.isSearching),
+      (isSearching) => _toggleBackdropLayerVisibility,
+    );
 
     var appBar = AppBar(
       elevation: 0.0,

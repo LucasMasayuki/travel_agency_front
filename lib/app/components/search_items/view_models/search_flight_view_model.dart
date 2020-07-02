@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:travel_agency_front/app/interfaces/search_view_model_interface.dart';
 import 'package:travel_agency_front/app/repositories/flight_city_repository.dart';
 import 'package:travel_agency_front/app/view_data/flight_search_view_data.dart';
 
@@ -7,21 +8,31 @@ part 'search_flight_view_model.g.dart';
 
 class SearchFlightViewModel = _SearchFlightBase with _$SearchFlightViewModel;
 
-abstract class _SearchFlightBase with Store {
+abstract class _SearchFlightBase
+    with Store
+    implements SearchViewModelInterface {
   @observable
-  int adults = 1;
+  int adults;
 
   @observable
-  int children = 1;
+  int children;
 
   @observable
-  String departureDate = DateTime.now().toString();
+  String departureDate;
 
   @observable
-  String destiny = "São Paulo";
+  String destiny;
 
   @observable
-  String origin = "Buenos Aires";
+  String origin;
+
+  @computed
+  bool get isValidForm =>
+      isValidAdults() &&
+      isValidChildren() &&
+      isValidDestiny() &&
+      isValidOrigin() &&
+      isValidDepartureDate();
 
   @action
   void onChangeAdults(adults) {
@@ -48,7 +59,27 @@ abstract class _SearchFlightBase with Store {
     this.origin = origin;
   }
 
-  FlightSearchViewData getFlight() {
+  bool isValidAdults() {
+    return this.adults != null;
+  }
+
+  bool isValidChildren() {
+    return this.children != null;
+  }
+
+  bool isValidDestiny() {
+    return this.destiny != null;
+  }
+
+  bool isValidOrigin() {
+    return this.origin != null;
+  }
+
+  bool isValidDepartureDate() {
+    return this.departureDate != null;
+  }
+
+  FlightSearchViewData getSearchData() {
     return FlightSearchViewData(
       adults: this.adults,
       children: this.children,

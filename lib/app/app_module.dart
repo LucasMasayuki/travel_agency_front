@@ -6,6 +6,8 @@ import 'package:travel_agency_front/app/components/categories_view/view_model/ca
 import 'package:travel_agency_front/app/components/front_layer/front_layer_view_model.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_flight_view_model.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_hotel_view_model.dart';
+import 'package:travel_agency_front/app/components/search_items/view_models/search_item_view_model.dart';
+import 'package:travel_agency_front/app/modules/hotel_details/hotel_details_module.dart';
 import 'package:travel_agency_front/app/repositories/car_rental_repository.dart';
 import 'package:travel_agency_front/app/repositories/flight_city_repository.dart';
 import 'package:travel_agency_front/app/repositories/hotel_city_repository.dart';
@@ -32,6 +34,7 @@ class AppModule extends MainModule {
         Bind((i) => CategoriesViewModel()),
         Bind((i) => CategoryFlightViewModel()),
         Bind((i) => CategoryCarRentalViewModel()),
+        Bind((i) => SearchItemViewModel()),
         Bind((i) => SearchFlightViewModel()),
         Bind((i) => CategoryHotelViewModel()),
         Bind((i) => SearchHotelViewModel()),
@@ -41,6 +44,7 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router('/', module: HomeModule()),
+        Router('/hotelDetails', module: HotelDetailsModule()),
       ];
 
   @override
