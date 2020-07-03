@@ -49,7 +49,7 @@ class _CategoriesCarRentalViewWidgetState
     final FrontLayerViewModel frontLayerViewModel = Modular.get();
 
     String text =
-        "${categoryCarRentalViewModel.carRentalViewData.length - 1} carros encontrados";
+        "${categoryCarRentalViewModel.carRentalViewData.length} carros encontrados";
 
     frontLayerViewModel.onLoadFrontView(text);
   }

@@ -1,3 +1,4 @@
+import 'package:travel_agency_front/app/components/cart/cart_view_model.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/categories_view_model.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/category_car_rental_view_model.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/category_flight_view_model.dart';
@@ -34,6 +35,7 @@ class AppModule extends MainModule {
         Bind((i) => CategoriesViewModel()),
         Bind((i) => CategoryFlightViewModel()),
         Bind((i) => CategoryCarRentalViewModel()),
+        Bind((i) => CartViewModel()),
         Bind((i) => SearchItemViewModel()),
         Bind((i) => SearchFlightViewModel()),
         Bind((i) => SearchCarRentalViewModel()),
@@ -44,15 +46,7 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
-        Router('/', module: HomeModule()),
-        Router(
-          '/hotelDetails/:hotel_id/:check_in/:check_out',
-          child: (_, args) => HotelDetailsPage(
-            hotelId: args.params["hotel_id"],
-            checkIn: args.params["check_in"],
-            checkOut: args.params["check_out"],
-          ),
-        )
+        Router(Modular.initialRoute, module: HomeModule()),
       ];
 
   @override

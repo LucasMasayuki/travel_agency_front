@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/components/buttons/add_to_cart_button.dart';
+import 'package:travel_agency_front/app/components/cart/cart_view_model.dart';
 import 'package:travel_agency_front/app/utils/media_helper.dart';
 import 'package:travel_agency_front/app/view_data/flight_view_data.dart';
 
@@ -11,6 +13,7 @@ class FlightCard extends StatelessWidget {
   }) : super(key: key);
 
   List<Widget> getCardBody(BuildContext context) {
+    final CartViewModel cartViewModel = Modular.get();
     final bool isMobile = MediaHelper.isMobile(context);
     List<Widget> cardBody = [];
 
@@ -19,7 +22,7 @@ class FlightCard extends StatelessWidget {
     Widget descriptionWidget = _getDescriptionWidget(isMobile);
 
     Widget button = AddToCartButton(
-      onPurchase: () => {},
+      onPurchase: () => cartViewModel.onAddItemOnCart(flight),
     );
 
     cardBody.add(Expanded(

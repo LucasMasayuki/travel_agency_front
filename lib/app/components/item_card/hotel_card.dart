@@ -23,7 +23,7 @@ class HotelCard extends StatelessWidget {
     Widget imgWidget = _getImageWidget();
     Widget titleWidget = _getTitleWidget(isMobile);
     Widget locationWidget = _getLocationWidget(isMobile);
-    Widget starsWidget = _getStarsWidget();
+    Widget starsWidget = _getStarsWidget(isMobile);
     Widget priceWidget = _getPriceWidget(isMobile);
 
     cardBody.add(Expanded(
@@ -37,12 +37,12 @@ class HotelCard extends StatelessWidget {
           )
         ],
       ),
-      flex: 2,
+      flex: 3,
     ));
 
     cardBody.add(Expanded(
       child: titleWidget,
-      flex: 1,
+      flex: 2,
     ));
 
     cardBody.add(Expanded(
@@ -68,7 +68,7 @@ class HotelCard extends StatelessWidget {
           ),
         ),
       ),
-      margin: EdgeInsets.only(right: 10, top: 10, bottom: 10),
+      margin: EdgeInsets.only(right: 15, bottom: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -98,7 +98,7 @@ class HotelCard extends StatelessWidget {
     return priceWidget;
   }
 
-  Widget _getStarsWidget() {
+  Widget _getStarsWidget(bool isMobile) {
     Widget starsWidget = Container(
       child: Align(
         alignment: Alignment.topRight,
@@ -108,7 +108,7 @@ class HotelCard extends StatelessWidget {
             (index) => Container(
               child: Icon(
                 Icons.star,
-                size: 24,
+                size: isMobile ? 24 : 36,
                 color: Colors.yellow[600],
               ),
               decoration: BoxDecoration(
@@ -216,9 +216,11 @@ class HotelCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => {
-        Modular.to.pushNamed(
-          '/hotelDetail/${hotel.id}/${hotelSearchViewData.checkIn}/${hotelSearchViewData.checkOut}',
-        )
+        Modular.to.pushNamed('/hotelDetails', arguments: {
+          "hoteld": hotel.id,
+          "checkIn": hotelSearchViewData.checkIn,
+          "checkOut": hotelSearchViewData.checkOut
+        })
       },
       child: Card(
         shape: RoundedRectangleBorder(

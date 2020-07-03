@@ -42,11 +42,13 @@ class _CategoriesHotelViewWidgetState extends State<CategoriesHotelViewWidget> {
         return EmptyPageWidget();
       }
 
+      double ratio = MediaHelper.getChildAspectRatio(context);
+
       if (MediaHelper.isMobile(context)) {
-        return _mobileGridView();
+        return _mobileGridView(ratio);
       }
 
-      return _desktopGridView();
+      return _desktopGridView(ratio);
     });
   }
 
@@ -55,27 +57,27 @@ class _CategoriesHotelViewWidgetState extends State<CategoriesHotelViewWidget> {
     final FrontLayerViewModel frontLayerViewModel = Modular.get();
 
     String text =
-        "${categoryHotelViewModel.hotelViewData.length - 1} hoteis encontrados";
+        "${categoryHotelViewModel.hotelViewData.length} hoteis encontrados";
 
     frontLayerViewModel.onLoadFrontView(text);
   }
 
-  Widget _mobileGridView() {
+  Widget _mobileGridView(double ratio) {
     return GridView.count(
       padding: EdgeInsets.all(10),
-      childAspectRatio: (100 / 150),
+      childAspectRatio: ratio,
       shrinkWrap: true,
-      crossAxisCount: 2,
+      crossAxisCount: 1,
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
       children: categoryHotelViewModel.hotelViewData,
     );
   }
 
-  Widget _desktopGridView() {
+  Widget _desktopGridView(double ratio) {
     return GridView.count(
       padding: EdgeInsets.all(20),
-      childAspectRatio: (150 / 200),
+      childAspectRatio: ratio / 3,
       shrinkWrap: true,
       crossAxisCount: 3,
       crossAxisSpacing: 20,

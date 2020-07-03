@@ -58,7 +58,7 @@ class _CategoriesFlightViewWidgetState
     final FrontLayerViewModel frontLayerViewModel = Modular.get();
 
     String text =
-        "${categoryFlightViewModel.flightViewData.length - 1} voos encontrados";
+        "${categoryFlightViewModel.flightViewData.length} voos encontrados";
 
     frontLayerViewModel.onLoadFrontView(text);
   }
