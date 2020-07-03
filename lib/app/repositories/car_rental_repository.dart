@@ -1,6 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:travel_agency_front/app/models/flight_model.dart';
+import 'package:travel_agency_front/app/models/car_rental_model.dart';
 import 'package:travel_agency_front/app/services/api_soap_service.dart';
 import 'package:travel_agency_front/app/utils/respository_result.dart';
 import 'package:travel_agency_front/app/view_data/car_rental_search_view_data.dart';
@@ -8,13 +7,14 @@ import 'package:travel_agency_front/app/view_data/car_rental_search_view_data.da
 class CarRentalRepository extends Disposable {
   ApiSoapService apiSoapService = Modular.get();
 
-  Future<RepositoryResult<List<FlightModel>, String>> getCarRentals(
+  Future<RepositoryResult<List<CarRentalModel>, String>> getCarRentals(
       CarRentalSearchViewData carRental) async {
     String envelope = _getFormattedEnvelpe(carRental);
+    print(envelope.trim());
     try {
-      final response = await apiSoapService.get(
-        'ws/carrentoffer',
-        envelope,
+      final response = await apiSoapService.post(
+        '/ws/carrentoffer.wsdl',
+        envelope: envelope,
       );
 
       if (response.statusCode != 200) {
@@ -22,8 +22,8 @@ class CarRentalRepository extends Disposable {
             null, response.statusMessage ?? 'unknown error');
       }
 
-      List<FlightModel> carRentals = (response.data as List)
-          .map((flight) => FlightModel.fromJson(flight))
+      List<CarRentalModel> carRentals = (response.data as List)
+          .map((flight) => CarRentalModel.fromJson(flight))
           .toList();
 
       return RepositoryResult(carRentals, null);

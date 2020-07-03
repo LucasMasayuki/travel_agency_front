@@ -70,11 +70,11 @@ abstract class _CategoriesCarRentalBase
 
   CarRentalSearchViewData _getInitialCarRental() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    // String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     return CarRentalSearchViewData(
-      location: "São Paulo, São Paulo, Brasil",
-      returnDate: formattedDate,
-      withdrawalDate: formattedDate,
+      location: "Ciudad Guayana, Bolívar, Venezuela",
+      returnDate: "30-06-2020",
+      withdrawalDate: "23-06-2020",
     );
   }
 }

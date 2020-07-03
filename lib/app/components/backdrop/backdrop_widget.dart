@@ -32,12 +32,18 @@ class _BackdropWidgetState extends State<BackdropWidget>
     with TickerProviderStateMixin {
   final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
   final CategoriesViewModel categoriesViewModel = Modular.get();
+  final SearchItemViewModel searchItemViewModel = Modular.get();
   AnimationController _controller;
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+
+    reaction(
+      (_) => Observable(searchItemViewModel.isSearching),
+      (isSearching) => isSearching ? _toggleBackdropLayerVisibility : null,
+    );
 
     _tabController = TabController(vsync: this, length: widget.tabIcons.length);
     _tabController.addListener(_handleTabSelection);
@@ -105,13 +111,6 @@ class _BackdropWidgetState extends State<BackdropWidget>
 
   @override
   Widget build(BuildContext context) {
-    final SearchItemViewModel searchItemViewModel = Modular.get();
-
-    final dispose = reaction(
-      (_) => Observable(searchItemViewModel.isSearching),
-      (isSearching) => _toggleBackdropLayerVisibility,
-    );
-
     var appBar = AppBar(
       elevation: 0.0,
       title: BackdropTitleWidget(

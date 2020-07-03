@@ -49,7 +49,7 @@ abstract class _CategoryHotelBase
 
     isLoading = true;
     final result = await repository.getHotels(hotel);
-    final viewDataList = _buildViewData(result.success ?? []);
+    final viewDataList = _buildViewData(result.success ?? [], hotel);
 
     hotelViewData = [];
     hotelViewData.addAll(viewDataList);
@@ -57,7 +57,10 @@ abstract class _CategoryHotelBase
     isLoading = false;
   }
 
-  List<HotelCard> _buildViewData(List<HotelModel> hotel) {
+  List<HotelCard> _buildViewData(
+    List<HotelModel> hotel,
+    RowViewDataAbstract searchHotelViewData,
+  ) {
     if (hotel.isEmpty) {
       return [];
     }
@@ -65,7 +68,10 @@ abstract class _CategoryHotelBase
     var viewDataList = <HotelCard>[];
 
     viewDataList.addAll(hotel.map((item) {
-      return HotelCard(hotel: HotelViewData(hotel: item));
+      return HotelCard(
+        hotel: HotelViewData(hotel: item),
+        hotelSearchViewData: searchHotelViewData,
+      );
     }));
 
     return viewDataList;

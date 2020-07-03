@@ -35,6 +35,7 @@ class _CategoriesHotelViewWidgetState extends State<CategoriesHotelViewWidget> {
 
       if (categoryHotelViewModel.hasError) {
         _showErrorSnackBar(context);
+        return EmptyPageWidget();
       }
 
       if (categoryHotelViewModel.isEmptyPage) {
@@ -53,11 +54,10 @@ class _CategoriesHotelViewWidgetState extends State<CategoriesHotelViewWidget> {
       CategoryHotelViewModel categoryHotelViewModel) {
     final FrontLayerViewModel frontLayerViewModel = Modular.get();
 
-    Text clicakbleWidget = Text(
-      "${categoryHotelViewModel.hotelViewData.length - 1} hoteis encontrados",
-    );
+    String text =
+        "${categoryHotelViewModel.hotelViewData.length - 1} hoteis encontrados";
 
-    frontLayerViewModel.onLoadFrontView(clicakbleWidget);
+    frontLayerViewModel.onLoadFrontView(text);
   }
 
   Widget _mobileGridView() {

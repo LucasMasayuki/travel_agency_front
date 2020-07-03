@@ -30,15 +30,14 @@ class FrontLayerWidget extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: onTap,
+            onTap: () => onTap(),
             child: Container(
               height: 40.0,
               alignment: AlignmentDirectional.centerStart,
               child: Align(
-                  alignment: Alignment.center,
-                  child: Observer(builder: (_) {
-                    return frontLayerViewModel.clickableWidget;
-                  })),
+                alignment: Alignment.center,
+                child: Observer(builder: (_) => Text(frontLayerViewModel.text)),
+              ),
             ),
           ),
           Expanded(

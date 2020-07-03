@@ -48,10 +48,9 @@ class _CategoriesCarRentalViewWidgetState
       CategoryCarRentalViewModel categoryCarRentalViewModel) {
     final FrontLayerViewModel frontLayerViewModel = Modular.get();
 
-    Text clicakbleWidget = Text(
-      "${categoryCarRentalViewModel.carRentalViewData.length - 1} carros encontrados",
-    );
+    String text =
+        "${categoryCarRentalViewModel.carRentalViewData.length - 1} carros encontrados";
 
-    frontLayerViewModel.onLoadFrontView(clicakbleWidget);
+    frontLayerViewModel.onLoadFrontView(text);
   }
 }

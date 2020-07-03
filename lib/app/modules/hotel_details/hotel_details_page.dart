@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 class HotelDetailsPage extends StatefulWidget {
-  const HotelDetailsPage({Key key}) : super(key: key);
+  final int hotelId;
+  final String checkIn;
+  final String checkOut;
+
+  const HotelDetailsPage(
+      {Key key,
+      @required this.hotelId,
+      @required this.checkIn,
+      @required this.checkOut})
+      : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();

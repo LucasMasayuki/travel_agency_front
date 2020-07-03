@@ -1,14 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/utils/media_helper.dart';
+import 'package:travel_agency_front/app/view_data/hotel_search_view_data.dart';
 import 'package:travel_agency_front/app/view_data/hotel_view_data.dart';
 
 class HotelCard extends StatelessWidget {
   final HotelViewData hotel;
+  final HotelSearchViewData hotelSearchViewData;
 
   const HotelCard({
     Key key,
     @required this.hotel,
+    @required this.hotelSearchViewData,
   }) : super(key: key);
 
   List<Widget> getCardBody(BuildContext context) {
@@ -211,7 +215,11 @@ class HotelCard extends StatelessWidget {
     List<Widget> cardBody = getCardBody(context);
 
     return GestureDetector(
-      onTap: () => {Navigator.pushNamed(context, '/hotelDetail')},
+      onTap: () => {
+        Modular.to.pushNamed(
+          '/hotelDetail/${hotel.id}/${hotelSearchViewData.checkIn}/${hotelSearchViewData.checkOut}',
+        )
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
