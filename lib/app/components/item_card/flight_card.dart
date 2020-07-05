@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:travel_agency_front/app/components/buttons/add_to_cart_button.dart';
-import 'package:travel_agency_front/app/components/cart/cart_view_model.dart';
+import 'package:travel_agency_front/app/components/buttons/go_to_checkout_button.dart';
 import 'package:travel_agency_front/app/utils/media_helper.dart';
 import 'package:travel_agency_front/app/view_data/flight_view_data.dart';
 
@@ -13,17 +12,12 @@ class FlightCard extends StatelessWidget {
   }) : super(key: key);
 
   List<Widget> getCardBody(BuildContext context) {
-    final CartViewModel cartViewModel = Modular.get();
     final bool isMobile = MediaHelper.isMobile(context);
     List<Widget> cardBody = [];
 
     Widget titleWidget = _getTitleWidget(isMobile);
 
     Widget descriptionWidget = _getDescriptionWidget(isMobile);
-
-    Widget button = AddToCartButton(
-      onPurchase: () => cartViewModel.onAddItemOnCart(flight),
-    );
 
     cardBody.add(Expanded(
       child: titleWidget,
@@ -36,22 +30,63 @@ class FlightCard extends StatelessWidget {
     ));
 
     cardBody.add(Expanded(
-      child: Container(
-        padding: EdgeInsets.only(top: 10),
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: Colors.grey,
-              width: 0.5,
-            ),
-          ),
-        ),
-        child: button,
-      ),
+      child: _getTotalPriceWithButton(isMobile),
       flex: 1,
     ));
 
     return cardBody;
+  }
+
+  Widget _getTotalPriceWithButton(bool isMobile) {
+    Widget button = GoToCheckoutButton(
+      onPurchase: () => Modular.to.pushNamed('/checkout', arguments: flight),
+    );
+
+    Widget totalPriceWithButtonWidget = Container(
+      padding: EdgeInsets.only(top: 10),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: Colors.grey,
+            width: 0.5,
+          ),
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: Text(
+                    "Valor total: ",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'R\$ ${flight.total}',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          button,
+        ],
+      ),
+    );
+
+    return totalPriceWithButtonWidget;
   }
 
   Widget _getDescriptionWidget(bool isMobile) {
@@ -134,32 +169,6 @@ class FlightCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   'R\$ ${flight.valuePerAdult}',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: Text(
-                  "Valor total: ",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  'R\$ ${flight.total}',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.black,

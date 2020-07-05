@@ -35,27 +35,11 @@ class SearchFlightForm extends StatelessWidget {
     SearchFlightViewModel searchFlightViewModel,
   ) {
     const EdgeInsets padding = EdgeInsets.all(20);
-    TextEditingController dateController = TextEditingController();
 
     return [
       Padding(
         padding: padding,
         child: _adulltAndChildrensRowWidget(searchFlightViewModel),
-      ),
-      Padding(
-        padding: padding,
-        child: Center(
-          child: DatePickerField(
-            hintText: 'Data de decoragem',
-            onChanged: searchFlightViewModel.onChangeDepartureDate,
-            controller: dateController,
-            validator: (_) {
-              return !searchFlightViewModel.isValidDepartureDate()
-                  ? 'Preencha a data de decolagem'
-                  : null;
-            },
-          ),
-        ),
       ),
       Padding(
         padding: padding,
@@ -67,6 +51,13 @@ class SearchFlightForm extends StatelessWidget {
         padding: padding,
         child: Center(
           child: _destinyTypeaheadWidget(context, searchFlightViewModel),
+        ),
+      ),
+      Padding(
+        padding: padding,
+        child: Center(
+          child: _departureDateAndReturnDateRowWidget(
+              context, searchFlightViewModel),
         ),
       ),
     ];
@@ -84,14 +75,60 @@ class SearchFlightForm extends StatelessWidget {
     );
   }
 
+  Widget _departureDateAndReturnDateRowWidget(
+    BuildContext context,
+    SearchFlightViewModel searchFlightViewModel,
+  ) {
+    TextEditingController departureDateController = TextEditingController();
+    TextEditingController returnController = TextEditingController();
+
+    Widget rowCheckinOut = Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: DatePickerField(
+              hintText: 'Data da decoragem',
+              onChanged: searchFlightViewModel.onChangeDepartureDate,
+              controller: departureDateController,
+              validator: (_) {
+                return !searchFlightViewModel.isValidDepartureDate()
+                    ? 'Preencha a data de decolagem'
+                    : null;
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: DatePickerField(
+              hintText: 'Data de retorno',
+              onChanged: searchFlightViewModel.onChangeReturnDate,
+              controller: returnController,
+              validator: (_) {
+                return !searchFlightViewModel.isValidReturnDate()
+                    ? 'Preencha a data de retorno'
+                    : null;
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+    return rowCheckinOut;
+  }
+
   Widget _adulltAndChildrensRowWidget(
-      SearchFlightViewModel searchFlightViewModel) {
+    SearchFlightViewModel searchFlightViewModel,
+  ) {
     return Row(
       children: [
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(right: 10),
             child: TextFormFieldCustom(
+              maxLength: 2,
               keyboardType: TextInputType.number,
               hintText: 'Adultos',
               onChanged: searchFlightViewModel.onChangeAdults,
@@ -108,6 +145,7 @@ class SearchFlightForm extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(left: 10),
             child: TextFormFieldCustom(
+              maxLength: 2,
               keyboardType: TextInputType.number,
               hintText: 'Criancas',
               onChanged: searchFlightViewModel.onChangeChildren,
@@ -125,42 +163,14 @@ class SearchFlightForm extends StatelessWidget {
   }
 
   Widget _originTypeaheadWidget(
-      BuildContext context, SearchFlightViewModel searchFlightViewModel) {
+    BuildContext context,
+    SearchFlightViewModel searchFlightViewModel,
+  ) {
+    TextEditingController originController = TextEditingController();
+
     TypeAheadField typeaheadField = TypeAheadField(
       textFieldConfiguration: TextFieldConfiguration(
-        style: DefaultTextStyle.of(context)
-            .style
-            .copyWith(fontStyle: FontStyle.italic),
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(
-              const Radius.circular(32.0),
-            ),
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          hintText: "Destino",
-          hintStyle: TextStyle(color: Colors.grey),
-          prefixIcon: Icon(Icons.flight_land),
-        ),
-      ),
-      suggestionsCallback: searchFlightViewModel.onTypeAhead,
-      itemBuilder: (context, suggestion) {
-        return ListTile(
-          leading: Icon(Icons.location_city),
-          title: Text(suggestion),
-        );
-      },
-      onSuggestionSelected: searchFlightViewModel.onChangeDestiny,
-    );
-
-    return typeaheadField;
-  }
-
-  Widget _destinyTypeaheadWidget(
-      BuildContext context, SearchFlightViewModel searchFlightViewModel) {
-    TypeAheadField typeaheadField = TypeAheadField(
-      textFieldConfiguration: TextFieldConfiguration(
+        controller: originController,
         style: DefaultTextStyle.of(context)
             .style
             .copyWith(fontStyle: FontStyle.italic),
@@ -180,11 +190,55 @@ class SearchFlightForm extends StatelessWidget {
       suggestionsCallback: searchFlightViewModel.onTypeAhead,
       itemBuilder: (context, suggestion) {
         return ListTile(
+          leading: Icon(Icons.location_city),
+          title: Text(suggestion),
+        );
+      },
+      onSuggestionSelected: (suggestion) {
+        searchFlightViewModel.onChangeOrigin(suggestion);
+        originController.text = suggestion;
+      },
+    );
+
+    return typeaheadField;
+  }
+
+  Widget _destinyTypeaheadWidget(
+    BuildContext context,
+    SearchFlightViewModel searchFlightViewModel,
+  ) {
+    TextEditingController destinyController = TextEditingController();
+
+    TypeAheadField typeaheadField = TypeAheadField(
+      textFieldConfiguration: TextFieldConfiguration(
+        controller: destinyController,
+        style: DefaultTextStyle.of(context)
+            .style
+            .copyWith(fontStyle: FontStyle.italic),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(
+              const Radius.circular(32.0),
+            ),
+          ),
+          filled: true,
+          fillColor: Colors.white,
+          hintText: "Destino",
+          hintStyle: TextStyle(color: Colors.grey),
+          prefixIcon: Icon(Icons.flight_takeoff),
+        ),
+      ),
+      suggestionsCallback: searchFlightViewModel.onTypeAhead,
+      itemBuilder: (context, suggestion) {
+        return ListTile(
           leading: Icon(Icons.flight_takeoff),
           title: Text(suggestion),
         );
       },
-      onSuggestionSelected: searchFlightViewModel.onChangeDestiny,
+      onSuggestionSelected: (suggestion) {
+        searchFlightViewModel.onChangeDestiny(suggestion);
+        destinyController.text = suggestion;
+      },
     );
 
     return typeaheadField;

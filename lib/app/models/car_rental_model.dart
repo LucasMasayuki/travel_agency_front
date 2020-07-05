@@ -9,10 +9,10 @@ class CarRentalModel {
   CarRentalModel();
 
   CarRentalModel.fromJson(Map<String, dynamic> json) {
-    company = json["carOffer"]["empresa"];
-    placeWithdrawn = json["carOffer"]["localRetirada"];
-    total = json["carOffer"]["valorTotal"];
-    car = CarModel.fromJson(json["carOffer"]["carro"]);
+    company = json["empresa"];
+    placeWithdrawn = json["localRetirada"];
+    total = json["valorTotal"];
+    car = CarModel.fromJson(json["carro"]);
   }
 
   Map<String, dynamic> toJson() => {};

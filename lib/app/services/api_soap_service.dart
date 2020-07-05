@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:xml/xml.dart' as xml;
 
 import 'package:travel_agency_front/app/config/env.dart';
 
@@ -20,7 +19,6 @@ class ApiSoapService {
     headers['Access-Control-Request-Method'] = "*";
 
     _client.options.headers = headers;
-    print(_client.options.headers);
     return _client;
   }
 

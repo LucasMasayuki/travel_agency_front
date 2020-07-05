@@ -21,6 +21,9 @@ abstract class _CategoriesCarRentalBase
   List<CarRentalCard> carRentalViewData = [];
 
   @observable
+  bool initialized = false;
+
+  @observable
   bool isLoading = true;
 
   String errorMessage;
@@ -35,6 +38,7 @@ abstract class _CategoriesCarRentalBase
   @action
   Future<void> initialize() {
     CarRentalSearchViewData carRental = _getInitialCarRental();
+    initialized = true;
 
     return loadCategoryData(carRental);
   }
@@ -61,7 +65,7 @@ abstract class _CategoriesCarRentalBase
 
     viewDataList.addAll(carRental.map((item) {
       return CarRentalCard(
-        cardRental: CarRentalViewData(carRental: item),
+        carRental: CarRentalViewData(carRental: item),
       );
     }));
 
@@ -70,11 +74,15 @@ abstract class _CategoriesCarRentalBase
 
   CarRentalSearchViewData _getInitialCarRental() {
     DateTime now = DateTime.now();
-    // String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    DateTime fifthDaysAfterNow = DateTime.now().add(Duration(days: 15));
+    String formatedWithdrawalDate = DateFormat('dd-MM-yyyy').format(now);
+    String formatedReturnDate =
+        DateFormat('yyyy-MM-dd').format(fifthDaysAfterNow);
+
     return CarRentalSearchViewData(
       location: "Ciudad Guayana, Bolívar, Venezuela",
-      returnDate: "30-06-2020",
-      withdrawalDate: "23-06-2020",
+      returnDate: formatedReturnDate,
+      withdrawalDate: formatedWithdrawalDate,
     );
   }
 }

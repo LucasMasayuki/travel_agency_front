@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AddToCartButton extends StatelessWidget {
+class GoToCheckoutButton extends StatelessWidget {
   final Function onPurchase;
 
-  const AddToCartButton({
+  const GoToCheckoutButton({
     Key key,
     this.onPurchase,
   }) : super(key: key);
@@ -15,7 +15,7 @@ class AddToCartButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(30.0),
       ),
       onPressed: this.onPurchase,
-      child: Text('Adquirir'),
+      child: Text('Selecionar'),
       color: Colors.orange[400],
       textColor: Colors.white,
     );

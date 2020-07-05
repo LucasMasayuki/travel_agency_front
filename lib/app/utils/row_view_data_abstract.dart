@@ -1,1 +1,7 @@
-abstract class RowViewDataAbstract {}
+import 'package:flutter/cupertino.dart';
+
+abstract class RowViewDataAbstract {
+  String get cartTitle;
+  String get cartSubtitle;
+  Icon get cartIcon;
+}

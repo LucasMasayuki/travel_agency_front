@@ -1,8 +1,18 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:travel_agency_front/app/models/flight_model.dart';
 import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
 
 class FlightViewData implements RowViewDataAbstract {
   final FlightModel flight;
+
+  String get cartTitle =>
+      flight.goingOrigin.substring(0, flight.goingOrigin.indexOf('('));
+
+  String get cartSubtitle =>
+      flight.goingOrigin.substring(0, flight.goingOrigin.indexOf('('));
+
+  Icon get cartIcon => Icon(Icons.airline_seat_flat);
 
   String get goingOrigin =>
       flight.goingOrigin.substring(0, flight.goingOrigin.indexOf('('));

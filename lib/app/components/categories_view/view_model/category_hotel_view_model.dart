@@ -79,11 +79,14 @@ abstract class _CategoryHotelBase
 
   HotelSearchViewData _getInitialHotel() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    DateTime fifthDaysAfterNow = DateTime.now().add(Duration(days: 15));
+    String formatedCheckIn = DateFormat('yyyy-MM-dd').format(now);
+    String formatedCheckOut =
+        DateFormat('yyyy-MM-dd').format(fifthDaysAfterNow);
     return HotelSearchViewData(
       adults: 1,
-      checkIn: "2020-07-20",
-      checkOut: "2020-07-30",
+      checkIn: formatedCheckIn,
+      checkOut: formatedCheckOut,
       destiny: "Posadas, Misiones, Argentina",
     );
   }

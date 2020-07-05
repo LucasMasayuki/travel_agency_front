@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:travel_agency_front/app/modules/checkout/checkout_page.dart';
+import 'package:travel_agency_front/app/modules/checkout/checkout_module.dart';
 import 'package:travel_agency_front/app/modules/home/home_page.dart';
 import 'package:travel_agency_front/app/modules/hotel_details/hotel_details_page.dart';
 
@@ -16,11 +16,12 @@ class HomeModule extends ChildModule {
             hotelId: args.data["hoteld"],
             checkIn: args.data["checkIn"],
             checkOut: args.data["checkOut"],
+            name: args.data["name"],
           ),
         ),
         Router(
           '/checkout',
-          child: (_, args) => CheckoutPage(),
+          module: CheckoutModule(),
         )
       ];
 

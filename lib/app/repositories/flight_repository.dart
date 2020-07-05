@@ -13,8 +13,8 @@ class FlightRepository extends Disposable {
       final response = await apiService.get('/flights', queryParameters: {
         'adults': flight.adults,
         'children': flight.children,
-        'departureDate': "2020-07-10",
-        'returnDate': "2020-07-20",
+        'departureDate': flight.departureDate,
+        'returnDate': flight.returnDate,
         'destiny': flight.destiny,
         'origin': flight.origin,
         'maxPrice': 99999,

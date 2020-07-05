@@ -21,6 +21,9 @@ abstract class _SearchFlightBase
   String departureDate;
 
   @observable
+  String returnDate;
+
+  @observable
   String destiny;
 
   @observable
@@ -32,51 +35,61 @@ abstract class _SearchFlightBase
       isValidChildren() &&
       isValidDestiny() &&
       isValidOrigin() &&
-      isValidDepartureDate();
+      isValidDepartureDate() &&
+      isValidReturnDate();
 
   @action
-  void onChangeAdults(adults) {
-    this.adults = adults;
+  void onChangeAdults(String adults) {
+    this.adults = int.parse(adults);
   }
 
   @action
-  void onChangeChildren(children) {
-    this.children = children;
+  void onChangeChildren(String children) {
+    this.children = int.parse(children);
   }
 
   @action
-  void onChangeDepartureDate(departureDate) {
+  void onChangeDepartureDate(String departureDate) {
     this.departureDate = departureDate;
   }
 
   @action
-  void onChangeDestiny(destiny) {
+  void onChangeReturnDate(String returnDate) {
+    this.returnDate = returnDate;
+  }
+
+  @action
+  void onChangeDestiny(String destiny) {
     this.destiny = destiny;
   }
 
   @action
-  void onChangeOrigin(origin) {
+  void onChangeOrigin(String origin) {
     this.origin = origin;
   }
 
   bool isValidAdults() {
-    return this.adults != null;
+    return this.adults != null && this.adults > 0;
   }
 
   bool isValidChildren() {
-    return this.children != null;
+    return this.children != null && this.children > 0;
   }
 
   bool isValidDestiny() {
-    return this.destiny != null;
+    return this.destiny != null && this.destiny.isNotEmpty;
   }
 
   bool isValidOrigin() {
-    return this.origin != null;
+    return this.origin != null && this.origin.isNotEmpty;
   }
 
   bool isValidDepartureDate() {
-    return this.departureDate != null;
+    return this.departureDate != null && this.departureDate.isNotEmpty;
+  }
+
+  bool isValidReturnDate() {
+    return this.returnDate != null && this.returnDate.isNotEmpty;
   }
 
   FlightSearchViewData getSearchData() {
@@ -84,6 +97,7 @@ abstract class _SearchFlightBase
       adults: this.adults,
       children: this.children,
       departureDate: this.departureDate,
+      returnDate: this.returnDate,
       destiny: this.destiny,
       origin: this.origin,
     );

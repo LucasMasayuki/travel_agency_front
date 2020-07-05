@@ -219,7 +219,8 @@ class HotelCard extends StatelessWidget {
         Modular.to.pushNamed('/hotelDetails', arguments: {
           "hoteld": hotel.id,
           "checkIn": hotelSearchViewData.checkIn,
-          "checkOut": hotelSearchViewData.checkOut
+          "checkOut": hotelSearchViewData.checkOut,
+          "name": hotel.hotelName
         })
       },
       child: Card(

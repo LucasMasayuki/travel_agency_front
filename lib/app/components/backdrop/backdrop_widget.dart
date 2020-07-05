@@ -122,50 +122,6 @@ class _BackdropWidgetState extends State<BackdropWidget>
         frontTitle: widget.frontTitle,
         backTitle: widget.backTitle,
       ),
-      actions: <Widget>[
-        Stack(
-          children: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-              ),
-              onPressed: () => Navigator.pushNamed(context, '/checkout'),
-            ),
-            Observer(builder: (_) {
-              if (cartViewModel.numberOfItems == 0) {
-                return Container();
-              }
-
-              return Positioned(
-                child: Stack(
-                  children: <Widget>[
-                    Icon(
-                      Icons.brightness_1,
-                      size: 20.0,
-                      color: Colors.green[800],
-                    ),
-                    Positioned(
-                      top: 3.0,
-                      right: 4.0,
-                      child: Center(
-                        child: Text(
-                          cartViewModel.numberOfItems.toString(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }),
-          ],
-        ),
-      ],
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(48.0),
         child: Container(

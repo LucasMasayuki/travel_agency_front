@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'dart:io' show Platform;
 
 class MediaHelper {
   static bool isMobile(BuildContext context) {
@@ -13,5 +14,9 @@ class MediaHelper {
     final double itemWidth = size.width / 2;
 
     return itemWidth / itemHeight;
+  }
+
+  static bool isFromApps() {
+    return Platform.isAndroid || Platform.isIOS;
   }
 }

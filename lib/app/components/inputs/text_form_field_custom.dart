@@ -12,6 +12,7 @@ class TextFormFieldCustom extends StatelessWidget {
   final textCapitalization;
   final inputFormatters;
   final contentPadding;
+  final double fontSize;
   final initialValue;
   final bool obscureText;
   final Icon prefixIcon;
@@ -31,6 +32,7 @@ class TextFormFieldCustom extends StatelessWidget {
     this.contentPadding,
     this.prefixIcon,
     this.onTap,
+    this.fontSize,
     this.obscureText = false,
   }) : super(key: key);
 
@@ -55,6 +57,7 @@ class TextFormFieldCustom extends StatelessWidget {
       style: TextStyle(
         color: Colors.black,
         fontFamily: "Poppins",
+        fontSize: this.fontSize,
       ),
       validator: this.validator,
       controller: controller,

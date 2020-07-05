@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:travel_agency_front/app/components/cart/cart_view_model.dart';
+import 'package:travel_agency_front/app/components/checkout/checkout_steps_widget.dart';
+import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
 
 class CheckoutPage extends StatefulWidget {
+  final RowViewDataAbstract item;
   const CheckoutPage({
     Key key,
+    @required this.item,
   }) : super(key: key);
 
   @override
@@ -12,10 +14,19 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
-  final CartViewModel cartViewModel = Modular.get();
-
-  @override
   Widget build(BuildContext context) {
-    return Container();
+    var appBar = AppBar(
+      elevation: 0.0,
+      title: Text("Finalizar pedido"),
+    );
+
+    return Scaffold(
+      appBar: appBar,
+      body: Container(
+        height: double.infinity,
+        padding: EdgeInsets.all(10),
+        child: CheckoutStepsWidget(item: this.widget.item),
+      ),
+    );
   }
 }

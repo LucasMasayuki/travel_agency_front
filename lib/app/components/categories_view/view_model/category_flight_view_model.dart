@@ -73,12 +73,16 @@ abstract class _CategoryFlightBase
 
   FlightSearchViewData _getInitialFlight() {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    DateTime fifthDaysAfterNow = DateTime.now().add(Duration(days: 15));
+    String formatedDepartureDate = DateFormat('yyyy-MM-dd').format(now);
+    String formatedReturneDate =
+        DateFormat('yyyy-MM-dd').format(fifthDaysAfterNow);
+
     return FlightSearchViewData(
       adults: 1,
       children: 1,
-      departureDate: formattedDate,
-      returnDate: formattedDate,
+      departureDate: formatedDepartureDate,
+      returnDate: formatedReturneDate,
       destiny: "Posadas, Misiones, Argentina",
       origin: "Rio de Janeiro, Rio de Janeiro, Brasil",
     );

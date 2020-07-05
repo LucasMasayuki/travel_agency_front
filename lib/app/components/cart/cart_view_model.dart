@@ -6,14 +6,10 @@ class CartViewModel = _CartViewModelBase with _$CartViewModel;
 
 abstract class _CartViewModelBase with Store {
   @observable
-  List<dynamic> items = [];
-
-  @observable
-  int numberOfItems = 0;
+  dynamic item;
 
   @action
   onAddItemOnCart(item) {
-    this.items.add(item);
-    this.numberOfItems += 1;
+    this.item = item;
   }
 }

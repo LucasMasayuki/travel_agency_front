@@ -30,7 +30,6 @@ class HotelRepository extends Disposable {
 
       return RepositoryResult(hotelDetail, null);
     } on DioError catch (e) {
-      print(e.request.uri);
       return RepositoryResult(null, e.toString());
     }
   }

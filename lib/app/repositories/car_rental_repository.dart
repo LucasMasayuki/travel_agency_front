@@ -1,20 +1,24 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/models/car_rental_model.dart';
-import 'package:travel_agency_front/app/services/api_soap_service.dart';
+import 'package:travel_agency_front/app/services/api_service.dart';
 import 'package:travel_agency_front/app/utils/respository_result.dart';
 import 'package:travel_agency_front/app/view_data/car_rental_search_view_data.dart';
 
 class CarRentalRepository extends Disposable {
-  ApiSoapService apiSoapService = Modular.get();
+  ApiService apiService = Modular.get();
 
   Future<RepositoryResult<List<CarRentalModel>, String>> getCarRentals(
-      CarRentalSearchViewData carRental) async {
-    String envelope = _getFormattedEnvelpe(carRental);
-    print(envelope.trim());
+    CarRentalSearchViewData carRental,
+  ) async {
     try {
-      final response = await apiSoapService.post(
-        '/ws/carrentoffer.wsdl',
-        envelope: envelope,
+      final response = await apiService.get(
+        '/carRent',
+        queryParameters: {
+          'dataDevolucao': carRental.returnDate,
+          'dataRetirada': carRental.withdrawalDate,
+          'cidade': carRental.location,
+        },
       );
 
       if (response.statusCode != 200) {
@@ -22,32 +26,16 @@ class CarRentalRepository extends Disposable {
             null, response.statusMessage ?? 'unknown error');
       }
 
-      List<CarRentalModel> carRentals = (response.data as List)
-          .map((flight) => CarRentalModel.fromJson(flight))
+      var list = response.data["carRentResponse"]["carOffer"];
+
+      List<CarRentalModel> carRentals = (list as List)
+          .map((carRentalInfo) => CarRentalModel.fromJson(carRentalInfo))
           .toList();
 
       return RepositoryResult(carRentals, null);
     } catch (e) {
       return RepositoryResult(null, e.toString());
     }
-  }
-
-  String _getFormattedEnvelpe(CarRentalSearchViewData carRental) {
-    String envelope = '''
-      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                xmlns:gs="http://voyage.com/carrentoffers">
-        <soapenv:Header/>
-        <soapenv:Body>
-            <gs:getCarRentRequest>
-              <gs:cidade>${carRental.location}</gs:cidade>
-              <gs:dataRetirada>${carRental.withdrawalDate}</gs:dataRetirada>
-              <gs:dataDevolucao>${carRental.returnDate}</gs:dataDevolucao>
-            </gs:getCarRentRequest>
-        </soapenv:Body>
-      </soapenv:Envelope>
-    ''';
-
-    return envelope.trim();
   }
 
   //dispose will be called automatically

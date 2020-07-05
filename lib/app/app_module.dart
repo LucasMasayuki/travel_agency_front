@@ -8,7 +8,6 @@ import 'package:travel_agency_front/app/components/search_items/view_models/sear
 import 'package:travel_agency_front/app/components/search_items/view_models/search_flight_view_model.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_hotel_view_model.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_item_view_model.dart';
-import 'package:travel_agency_front/app/modules/hotel_details/hotel_details_page.dart';
 import 'package:travel_agency_front/app/repositories/car_rental_repository.dart';
 import 'package:travel_agency_front/app/repositories/flight_city_repository.dart';
 import 'package:travel_agency_front/app/repositories/hotel_city_repository.dart';
