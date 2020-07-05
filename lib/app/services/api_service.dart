@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:travel_agency_front/app/config/env.dart';
+import 'package:travel_agency_front/app/services/dio/interceptors.dart';
 
 class ApiService {
   final Dio _client;
@@ -7,6 +8,13 @@ class ApiService {
   ApiService(this._client);
 
   Future<Dio> getClient() async {
+    Interceptor interceptor = LoggingInterceptors();
+
+    _client..interceptors.add(interceptor);
+    _client.options.headers.addAll({
+      'accept': 'application/json',
+    });
+
     // Base Url
     _client.options.baseUrl = Env.baseUrl;
     return _client;
@@ -40,13 +48,15 @@ class ApiService {
     ProgressCallback onReceiveProgress,
   }) async {
     final client = await getClient();
-    final response = await client.post(path,
-        data: FormData.fromMap(data),
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress);
+    final response = await client.post(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
 
     return response;
   }

@@ -55,7 +55,7 @@ class FlightCard extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Row(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(

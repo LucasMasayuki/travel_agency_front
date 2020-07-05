@@ -73,7 +73,7 @@ abstract class _CategoryFlightBase
 
   FlightSearchViewData _getInitialFlight() {
     DateTime now = DateTime.now();
-    DateTime fifthDaysAfterNow = DateTime.now().add(Duration(days: 15));
+    DateTime fifthDaysAfterNow = DateTime.now().add(Duration(days: 20));
     String formatedDepartureDate = DateFormat('yyyy-MM-dd').format(now);
     String formatedReturneDate =
         DateFormat('yyyy-MM-dd').format(fifthDaysAfterNow);

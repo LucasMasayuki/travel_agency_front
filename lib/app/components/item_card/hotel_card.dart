@@ -218,6 +218,7 @@ class HotelCard extends StatelessWidget {
       onTap: () => {
         Modular.to.pushNamed('/hotelDetails', arguments: {
           "hoteld": hotel.id,
+          "adults": hotelSearchViewData.adults,
           "checkIn": hotelSearchViewData.checkIn,
           "checkOut": hotelSearchViewData.checkOut,
           "name": hotel.hotelName

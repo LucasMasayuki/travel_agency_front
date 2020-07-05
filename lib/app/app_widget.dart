@@ -7,7 +7,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: Modular.navigatorKey,
-      title: 'Travel agency',
+      title: 'Caminhos da América do sul',
       theme: ThemeData(
           primarySwatch: Colors.indigo,
           primaryColor: Colors.indigo,

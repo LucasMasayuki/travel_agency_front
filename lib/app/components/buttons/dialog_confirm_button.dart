@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
-class GoToCheckoutButton extends StatelessWidget {
-  final Function onPurchase;
+class DialogConfirmButton extends StatelessWidget {
+  final Function onPressed;
+  final Color color;
+  final String text;
 
-  const GoToCheckoutButton({
+  const DialogConfirmButton({
     Key key,
-    this.onPurchase,
+    @required this.onPressed,
+    @required this.text,
+    @required this.color,
   }) : super(key: key);
 
   @override
@@ -15,9 +19,9 @@ class GoToCheckoutButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
       ),
-      onPressed: this.onPurchase,
-      child: Text('Selecionar'),
-      color: Colors.orange[400],
+      onPressed: this.onPressed,
+      child: Text(this.text),
+      color: this.color,
       textColor: Colors.white,
     );
   }

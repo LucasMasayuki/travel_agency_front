@@ -2,16 +2,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/services/api_service.dart';
 import 'package:travel_agency_front/app/utils/respository_result.dart';
 
-class CheckoutRepository extends Disposable {
+class EmailRepository extends Disposable {
   ApiService apiService = Modular.get();
 
-  Future<RepositoryResult<String, String>> finishOrder(
-    Map<String, dynamic> checkoutViewData,
+  Future<RepositoryResult<String, String>> sendEmail(
+    Map<String, dynamic> data,
   ) async {
     try {
       final response = await apiService.post(
-        '/checkout',
-        data: checkoutViewData,
+        '/sendEmail',
+        data: data,
       );
 
       if (response.statusCode != 200) {

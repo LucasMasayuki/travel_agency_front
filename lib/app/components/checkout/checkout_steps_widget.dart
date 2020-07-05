@@ -6,9 +6,11 @@ import 'package:travel_agency_front/app/components/checkout/checkout_payment_for
 import 'package:travel_agency_front/app/components/checkout/checkout_person_info_form.dart';
 import 'package:travel_agency_front/app/components/checkout/checkout_steps_button_group.dart';
 import 'package:travel_agency_front/app/components/checkout/finish_checkout_loading_widget.dart';
+import 'package:travel_agency_front/app/components/checkout/view_models/checkout_payment_form_view_model.dart';
 import 'package:travel_agency_front/app/components/checkout/view_models/checkout_person_info_form_view_model.dart';
 import 'package:travel_agency_front/app/components/checkout/view_models/checkout_steps_view_model.dart';
 import 'package:travel_agency_front/app/components/empty_page/empty_page_widget.dart';
+import 'package:travel_agency_front/app/utils/media_helper.dart';
 import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
 
 class CheckoutStepsWidget extends StatefulWidget {
@@ -26,32 +28,51 @@ class _CheckoutStepsWidgetState extends State<CheckoutStepsWidget> {
   final CheckoutStepsViewModel checkoutStepsViewModel = Modular.get();
   final CheckoutPersonInfoFormViewModel checkoutPersonInfoFormViewModel =
       Modular.get();
+  final CheckoutPaymentFormViewModel checkoutPaymentFormViewModel =
+      Modular.get();
+  bool isMobile = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      child: Observer(builder: (_) {
-        if (this.widget.item == null) {
-          EmptyPageWidget();
-        }
+    return Observer(builder: (BuildContext context) {
+      isMobile = MediaHelper.isMobile(context);
+      return Container(
+        padding: EdgeInsets.all(20),
+        child: Observer(builder: (_) {
+          if (this.widget.item == null) {
+            EmptyPageWidget();
+          }
 
-        if (checkoutStepsViewModel.isFinishingOrder) {
-          FinishCheckoutLoadingWidget();
-        }
+          if (checkoutStepsViewModel.isFinishingOrder) {
+            FinishCheckoutLoadingWidget();
+          }
 
-        return _builderStep();
-      }),
-    );
+          return _builderStep();
+        }),
+      );
+    });
   }
 
   getSteps() {
     StepState personStepState = StepState.indexed;
+    StepState paymentStepState = StepState.indexed;
 
     if (checkoutPersonInfoFormViewModel.isValidForm) {
       personStepState = StepState.complete;
     } else if (checkoutStepsViewModel.currentStep == PERSON_STEP) {
       personStepState = StepState.editing;
+    } else if (!checkoutPersonInfoFormViewModel.isValidForm &&
+        checkoutStepsViewModel.initializePersonInfoStep) {
+      personStepState = StepState.error;
+    }
+
+    if (checkoutPaymentFormViewModel.isValidForm) {
+      paymentStepState = StepState.complete;
+    } else if (checkoutStepsViewModel.currentStep == PAYMENT_STEP) {
+      paymentStepState = StepState.editing;
+    } else if (!checkoutPaymentFormViewModel.isValidForm &&
+        checkoutStepsViewModel.initializePaymentStep) {
+      paymentStepState = StepState.error;
     }
 
     List<Step> steps = [
@@ -69,6 +90,7 @@ class _CheckoutStepsWidgetState extends State<CheckoutStepsWidget> {
       ),
       Step(
         isActive: checkoutStepsViewModel.currentStep == PAYMENT_STEP,
+        state: paymentStepState,
         title: Text("Pagamento"),
         content: CheckoutPaymentForm(),
       ),
@@ -79,6 +101,7 @@ class _CheckoutStepsWidgetState extends State<CheckoutStepsWidget> {
 
   Widget _builderStep() => Container(
         height: double.infinity,
+        width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           color: Colors.white,
@@ -88,7 +111,8 @@ class _CheckoutStepsWidgetState extends State<CheckoutStepsWidget> {
             type: StepperType.vertical,
             steps: getSteps(),
             currentStep: STEPS[checkoutStepsViewModel.currentStep],
-            onStepTapped: (step) => checkoutStepsViewModel.onClickNext(),
+            onStepTapped: (int step) =>
+                checkoutStepsViewModel.onClickStep(step),
             controlsBuilder: (BuildContext context,
                 {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
               return CheckoutStepsButtonGroup(
@@ -97,6 +121,7 @@ class _CheckoutStepsWidgetState extends State<CheckoutStepsWidget> {
                 onClickNext: checkoutStepsViewModel.onClickNext,
                 onClickPrev: checkoutStepsViewModel.onClickPrev,
                 showPrevButton: checkoutStepsViewModel.showPrevButton,
+                minWidth: isMobile ? 75 : 200,
               );
             },
           ),

@@ -12,7 +12,7 @@ class FlightViewData implements RowViewDataAbstract {
   String get cartSubtitle =>
       flight.goingOrigin.substring(0, flight.goingOrigin.indexOf('('));
 
-  Icon get cartIcon => Icon(Icons.airline_seat_flat);
+  Icon get cartIcon => Icon(Icons.flight_takeoff);
 
   String get goingOrigin =>
       flight.goingOrigin.substring(0, flight.goingOrigin.indexOf('('));

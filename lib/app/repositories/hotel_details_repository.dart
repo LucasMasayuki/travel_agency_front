@@ -4,7 +4,7 @@ import 'package:travel_agency_front/app/models/hotel_details_model.dart';
 import 'package:travel_agency_front/app/services/api_service.dart';
 import 'package:travel_agency_front/app/utils/respository_result.dart';
 
-class HotelRepository extends Disposable {
+class HotelDetailsRepository extends Disposable {
   ApiService apiService = Modular.get();
   Future<RepositoryResult<HotelDetailsModel, String>> getHotelDetails(
     int hotelId,

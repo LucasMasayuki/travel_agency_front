@@ -132,6 +132,7 @@ class SearchHotelForm extends StatelessWidget {
             padding: EdgeInsets.only(right: 10),
             child: DatePickerField(
               hintText: 'check in',
+              onChangeFormatter: "yyyy-MM-dd",
               onChanged: searchHotelViewModel.onChangeCheckIn,
               controller: checkInController,
               validator: (_) {
@@ -147,6 +148,7 @@ class SearchHotelForm extends StatelessWidget {
             padding: EdgeInsets.only(left: 10),
             child: DatePickerField(
               hintText: 'check out',
+              onChangeFormatter: "yyyy-MM-dd",
               onChanged: searchHotelViewModel.onChangeCheckOut,
               controller: checkOutController,
               validator: (_) {

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class MediaHelper {
   static bool isMobile(BuildContext context) {
@@ -17,6 +17,6 @@ class MediaHelper {
   }
 
   static bool isFromApps() {
-    return Platform.isAndroid || Platform.isIOS;
+    return !kIsWeb;
   }
 }

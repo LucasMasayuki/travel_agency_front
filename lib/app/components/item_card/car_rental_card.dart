@@ -24,12 +24,12 @@ class CarRentalCard extends StatelessWidget {
 
     cardBody.add(Expanded(
       child: _getTitleWidget(isMobile),
-      flex: 2,
+      flex: 1,
     ));
 
     cardBody.add(Expanded(
       child: _getCarInformationsWidget(isMobile),
-      flex: 6,
+      flex: 5,
     ));
 
     cardBody.add(Expanded(
@@ -39,7 +39,7 @@ class CarRentalCard extends StatelessWidget {
 
     cardBody.add(Expanded(
       child: _getTotalPriceWithButton(isMobile),
-      flex: 1,
+      flex: 2,
     ));
 
     return cardBody;

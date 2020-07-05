@@ -89,6 +89,7 @@ class SearchFlightForm extends StatelessWidget {
             padding: EdgeInsets.only(right: 10),
             child: DatePickerField(
               hintText: 'Data da decoragem',
+              onChangeFormatter: "yyyy-MM-dd",
               onChanged: searchFlightViewModel.onChangeDepartureDate,
               controller: departureDateController,
               validator: (_) {
@@ -104,6 +105,7 @@ class SearchFlightForm extends StatelessWidget {
             padding: EdgeInsets.only(left: 10),
             child: DatePickerField(
               hintText: 'Data de retorno',
+              onChangeFormatter: "yyyy-MM-dd",
               onChanged: searchFlightViewModel.onChangeReturnDate,
               controller: returnController,
               validator: (_) {

@@ -18,6 +18,12 @@ const STEPS = {
   PAYMENT_STEP: 2,
 };
 
+const List<String> ALL_STEPS = [
+  ITEMS_STEP,
+  PERSON_STEP,
+  PAYMENT_STEP,
+];
+
 abstract class _CheckoutStepsBase with Store {
   String prevStep = "";
   String nextStep = PERSON_STEP;
@@ -26,10 +32,13 @@ abstract class _CheckoutStepsBase with Store {
   String currentStep = ITEMS_STEP;
 
   @observable
-  bool isFinishingOrder = false;
+  bool initializePersonInfoStep = false;
 
   @observable
-  bool SuccessfulFinishOrder = false;
+  bool initializePaymentStep = false;
+
+  @observable
+  bool isFinishingOrder = false;
 
   @computed
   bool get showPrevButton => prevStep != "";
@@ -41,10 +50,28 @@ abstract class _CheckoutStepsBase with Store {
   String get prevButtonText => "Voltar";
 
   @action
+  onClickStep(int step) {
+    String selectedStep = ALL_STEPS[step];
+    switch (selectedStep) {
+      case ITEMS_STEP:
+        this.onClickBackToItemsListStep();
+        break;
+      case PERSON_STEP:
+        this.onClickGoToPersonInfoStep();
+        break;
+      case PAYMENT_STEP:
+        this.onClickGoToPaymentInfoStep();
+        break;
+    }
+    this.currentStep = selectedStep;
+  }
+
+  @action
   void onClickGoToPersonInfoStep() {
     this.currentStep = PERSON_STEP;
     this.nextStep = PAYMENT_STEP;
     this.prevStep = ITEMS_STEP;
+    this.initializePersonInfoStep = true;
   }
 
   @action
@@ -56,6 +83,8 @@ abstract class _CheckoutStepsBase with Store {
       this.currentStep = PAYMENT_STEP;
       this.nextStep = "";
       this.prevStep = PERSON_STEP;
+
+      this.initializePaymentStep = true;
     }
   }
 
@@ -74,11 +103,12 @@ abstract class _CheckoutStepsBase with Store {
   }
 
   @action
-  void onClickFinishOrder() {
+  Future<void> onClickFinishOrder() async {
     final CheckoutRepository repository = Modular.get();
 
+    isFinishingOrder = true;
     var data = mountJsonToSendOnBody();
-    repository.finishOrder(data);
+    await repository.finishOrder(data);
   }
 
   @action
@@ -141,6 +171,7 @@ abstract class _CheckoutStepsBase with Store {
       "nomeCliente": checkoutPersonInfoFormViewModel.completeName,
       "telefone": checkoutPersonInfoFormViewModel.telephone,
     };
+
     return data;
   }
 }

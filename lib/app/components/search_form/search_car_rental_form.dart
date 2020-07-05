@@ -73,6 +73,7 @@ class SearchCarRentalForm extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(right: 10),
             child: DatePickerField(
+              onChangeFormatter: "dd-MM-yyyy",
               hintText: 'Data retirada',
               onChanged: searchCarRentalViewModel.onChangeWithdrawalDate,
               controller: withdrawalController,
@@ -89,6 +90,7 @@ class SearchCarRentalForm extends StatelessWidget {
             padding: EdgeInsets.only(left: 10),
             child: DatePickerField(
               hintText: 'Data devolução',
+              onChangeFormatter: "dd-MM-yyyy",
               onChanged: searchCarRentalViewModel.onChangeReturnDate,
               controller: returnController,
               validator: (_) {

@@ -77,7 +77,7 @@ abstract class _CategoriesCarRentalBase
     DateTime fifthDaysAfterNow = DateTime.now().add(Duration(days: 15));
     String formatedWithdrawalDate = DateFormat('dd-MM-yyyy').format(now);
     String formatedReturnDate =
-        DateFormat('yyyy-MM-dd').format(fifthDaysAfterNow);
+        DateFormat('dd-MM-yyyy').format(fifthDaysAfterNow);
 
     return CarRentalSearchViewData(
       location: "Ciudad Guayana, Bolívar, Venezuela",

@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_agency_front/app/models/car_rental_model.dart';
 import 'package:travel_agency_front/app/services/api_service.dart';

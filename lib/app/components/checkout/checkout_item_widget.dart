@@ -24,16 +24,21 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
   Widget build(BuildContext context) {
     RowViewDataAbstract item = this.widget.item;
     Widget itemDescriptionWidget = Container();
-    if (item is FlightViewData) {}
-    if (item is HotelViewData) {}
-    if (item is CarRentalViewData) {}
+    if (item is FlightViewData) {
+      itemDescriptionWidget = buildDescriptionOfFlight(item);
+    } else if (item is HotelViewData) {
+    } else if (item is CarRentalViewData) {
+      itemDescriptionWidget = buildDescriptionOfCarRental(item);
+    }
 
     return itemDescriptionWidget;
   }
 
   Widget titleRow() {
     RowViewDataAbstract item = this.widget.item;
-    Widget titleRow = Row(
+    Widget titleRow = Wrap(
+      direction: Axis.horizontal,
+      spacing: 10,
       children: [
         Expanded(
           child: item.cartIcon,
@@ -57,28 +62,24 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
   }
 
   Widget subTitleRow(String subtitle) {
-    Widget titleRow = Row(
-      children: [
-        Expanded(
-          child: Text(
-            subtitle,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          flex: 2,
+    Widget titleRow = Wrap(direction: Axis.horizontal, spacing: 10, children: [
+      Text(
+        subtitle,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
         ),
-      ],
-    );
+      )
+    ]);
 
     return titleRow;
   }
 
   Widget descriptionRow(String label, String value) {
-    Widget descriptionRow = Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    Widget descriptionRow = Wrap(
+      direction: Axis.horizontal,
+      spacing: 10,
       children: [
         Expanded(
           child: Text(
@@ -105,7 +106,9 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
   }
 
   Widget buildDescriptionOfFlight(FlightViewData item) {
-    Widget descriptionFlight = Column(
+    Widget descriptionFlight = Wrap(
+      direction: Axis.horizontal,
+      spacing: 10,
       children: [
         titleRow(),
         subTitleRow("Informações de ida"),
@@ -127,7 +130,9 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
   }
 
   Widget buildDescriptionOfCarRental(CarRentalViewData item) {
-    Widget descriptionFlight = Column(
+    Widget descriptionFlight = Wrap(
+      direction: Axis.vertical,
+      spacing: 10,
       children: [
         titleRow(),
         subTitleRow("Informações sobre o carro"),
@@ -143,7 +148,7 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
         descriptionRow("Local de retirada: ", item.placeWithdrawn),
         descriptionRow("Empresa: ", item.company),
         subTitleRow("Preço"),
-        descriptionRow("Total: ", item.total),
+        descriptionRow("Total: ", item.total.toString()),
       ],
     );
 

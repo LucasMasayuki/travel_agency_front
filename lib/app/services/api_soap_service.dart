@@ -40,13 +40,6 @@ class ApiSoapService {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress);
 
-    //var rawXmlResponse = response.body;
-
-// Use the xml package's 'parse' method to parse the response.
-    //xml.XmlDocument parsedXml = xml.XmlDocument.parse(rawXmlResponse);
-
-    //print("DATAResult=" + response.body);
-    //print("DATAResult=" + parsedXml.toString());
     return response;
   }
 }

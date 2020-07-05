@@ -6,6 +6,7 @@ class CheckoutStepsButtonGroup extends StatelessWidget {
   final String prevButtonText;
   final String nextButtonText;
   final bool showPrevButton;
+  final double minWidth;
 
   const CheckoutStepsButtonGroup({
     Key key,
@@ -14,6 +15,7 @@ class CheckoutStepsButtonGroup extends StatelessWidget {
     @required this.prevButtonText,
     @required this.nextButtonText,
     @required this.showPrevButton,
+    this.minWidth,
   }) : super(key: key);
 
   @override
@@ -27,8 +29,12 @@ class CheckoutStepsButtonGroup extends StatelessWidget {
       buttons = [Container(), _getNextButton()];
     }
     return Container(
+      margin: EdgeInsets.only(top: 15),
       child: ButtonBarTheme(
-        data: ButtonBarThemeData(mainAxisSize: MainAxisSize.max),
+        data: ButtonBarThemeData(
+          mainAxisSize: MainAxisSize.max,
+          buttonMinWidth: this.minWidth,
+        ),
         child: ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
           children: buttons,
@@ -38,38 +44,30 @@ class CheckoutStepsButtonGroup extends StatelessWidget {
   }
 
   Widget _getPrevButton() {
-    Widget prevButton = Expanded(
-      child: Align(
-        child: RaisedButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          onPressed: this.onClickPrev,
-          child: Text(this.prevButtonText),
-          color: Colors.black12,
-          textColor: Colors.white,
-        ),
-        alignment: Alignment.centerRight,
+    Widget prevButton = RaisedButton(
+      padding: EdgeInsets.all(10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
       ),
+      onPressed: this.onClickPrev,
+      child: Text(this.prevButtonText),
+      color: Colors.grey,
+      textColor: Colors.white,
     );
 
     return prevButton;
   }
 
   Widget _getNextButton() {
-    Widget nextButton = Expanded(
-      child: Align(
-        child: RaisedButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          onPressed: this.onClickNext,
-          child: Text(this.nextButtonText),
-          color: Colors.green[400],
-          textColor: Colors.white,
-        ),
-        alignment: Alignment.centerRight,
+    Widget nextButton = RaisedButton(
+      padding: EdgeInsets.all(10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
       ),
+      onPressed: this.onClickNext,
+      child: Text(this.nextButtonText),
+      color: Colors.greenAccent[400],
+      textColor: Colors.white,
     );
 
     return nextButton;

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:travel_agency_front/app/components/backdrop_title/backdrop_title_widget.dart';
-import 'package:travel_agency_front/app/components/cart/cart_view_model.dart';
+import 'package:travel_agency_front/app/components/buttons/dialog_confirm_button.dart';
 import 'package:travel_agency_front/app/components/categories_view/view_model/categories_view_model.dart';
+import 'package:travel_agency_front/app/components/dialogs/view_model/send_email_dialog_view_model.dart';
 import 'package:travel_agency_front/app/components/front_layer/front_layer_widget.dart';
+import 'package:travel_agency_front/app/components/inputs/text_form_field_custom.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_item_view_model.dart';
 
 const double _kFlingVelocity = 2.0;
@@ -43,7 +44,7 @@ class _BackdropWidgetState extends State<BackdropWidget>
 
     reaction(
       (_) => Observable(searchItemViewModel.isSearching),
-      (isSearching) => isSearching ? _toggleBackdropLayerVisibility : null,
+      (isSearching) => isSearching ? _toggleBackdropLayerVisibility() : null,
     );
 
     _tabController = TabController(vsync: this, length: widget.tabIcons.length);
@@ -112,8 +113,6 @@ class _BackdropWidgetState extends State<BackdropWidget>
 
   @override
   Widget build(BuildContext context) {
-    final CartViewModel cartViewModel = Modular.get();
-
     var appBar = AppBar(
       elevation: 0.0,
       title: BackdropTitleWidget(
@@ -142,6 +141,54 @@ class _BackdropWidgetState extends State<BackdropWidget>
 
     return Scaffold(
       appBar: appBar,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          SendEmailDialogViewModel sendEmailDialogViewModel = Modular.get();
+          showDialog<String>(
+            context: context,
+            barrierDismissible:
+                false, // dialog is dismissible with a tap on the barrier
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(
+                  'Quer receber emails com as melhores promoções ? coloque seu email e confirme',
+                ),
+                content: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: TextFormFieldCustom(
+                        contentPadding: EdgeInsets.all(0),
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: sendEmailDialogViewModel.onChangeEmail,
+                        hintText: 'Email',
+                        prefixIcon: Icon(Icons.email),
+                      ),
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  DialogConfirmButton(
+                    color: Colors.grey,
+                    text: "Não, obrigado",
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  DialogConfirmButton(
+                    color: Colors.indigo,
+                    text: "Sim, eu quero",
+                    onPressed: () {
+                      sendEmailDialogViewModel.sendEmail();
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            },
+          );
+        },
+        child: Icon(Icons.notifications),
+      ),
       body: LayoutBuilder(
         builder: _buildStack,
       ),

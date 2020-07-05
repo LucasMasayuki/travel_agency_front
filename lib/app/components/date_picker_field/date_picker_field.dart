@@ -9,15 +9,21 @@ class DatePickerField extends StatelessWidget {
   final Function onChanged;
   final Function validator;
   final String initialValue;
+  final double fontSize;
+  final contentPadding;
   final TextEditingController controller;
+  final String onChangeFormatter;
 
   const DatePickerField({
     Key key,
     @required this.onChanged,
     @required this.hintText,
     @required this.controller,
+    @required this.onChangeFormatter,
     this.validator,
     this.initialValue,
+    this.fontSize,
+    this.contentPadding,
   }) : super(key: key);
 
   @override
@@ -29,6 +35,8 @@ class DatePickerField extends StatelessWidget {
       initialValue: this.initialValue,
       validator: this.validator,
       hintText: this.hintText,
+      contentPadding: this.contentPadding,
+      fontSize: this.fontSize,
       prefixIcon: Icon(Icons.calendar_today),
       inputFormatters: [MaskTextInputFormatter(mask: "##/##/####")],
       onTap: () {
@@ -43,7 +51,7 @@ class DatePickerField extends StatelessWidget {
             DateFormat formatter = new DateFormat('dd/MM/yyyy');
             String dateString = formatter.format(date);
             this.controller.text = dateString;
-            formatter = new DateFormat('yyyy-MM-dd');
+            formatter = new DateFormat(onChangeFormatter);
             dateString = formatter.format(_date);
             this.onChanged(dateString);
           },
