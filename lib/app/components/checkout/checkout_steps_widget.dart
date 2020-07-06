@@ -63,43 +63,7 @@ class _CheckoutStepsWidgetState extends State<CheckoutStepsWidget> {
           );
         }
 
-        Widget body;
-
-        switch (checkoutStepsViewModel.currentStep) {
-          case ITEMS_STEP:
-            body = CheckoutItemWidget(item: this.widget.item);
-            break;
-          case PERSON_STEP:
-            body = CheckoutPersonInfoForm();
-            break;
-          case PAYMENT_STEP:
-            body = CheckoutPaymentForm();
-            break;
-        }
-
-        return Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Colors.white,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                body,
-                CheckoutStepsButtonGroup(
-                  nextButtonText: checkoutStepsViewModel.nextButtonText,
-                  prevButtonText: checkoutStepsViewModel.prevButtonText,
-                  onClickNext: checkoutStepsViewModel.onClickNext,
-                  onClickPrev: checkoutStepsViewModel.onClickPrev,
-                  showPrevButton: checkoutStepsViewModel.showPrevButton,
-                  minWidth: isMobile ? 75 : 200,
-                ),
-              ],
-            ),
-          ),
-        );
+        return _builderStep();
       }),
     );
   }
@@ -140,13 +104,12 @@ class _CheckoutStepsWidgetState extends State<CheckoutStepsWidget> {
         content: CheckoutPersonInfoForm(),
       ),
       Step(
+        title: Text("Pagamento"),
         isActive: checkoutStepsViewModel.currentStep == PAYMENT_STEP,
         state: paymentStepState,
-        title: Text("Pagamento"),
         content: CheckoutPaymentForm(),
       ),
     ];
-
     return steps;
   }
 
