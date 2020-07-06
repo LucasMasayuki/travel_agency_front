@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_agency_front/app/models/flight_model.dart';
 import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
