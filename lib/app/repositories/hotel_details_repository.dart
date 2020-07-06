@@ -14,10 +14,10 @@ class HotelDetailsRepository extends Disposable {
   ) async {
     try {
       final response = await apiService.get('/hotelDetails', queryParameters: {
-        'hotelId': hotelId,
+        'id': hotelId,
         'checkIn': checkIn,
         'checkOut': checkOut,
-        'adults': adults,
+        'adults1': adults,
         'currency': "BRL",
       });
 

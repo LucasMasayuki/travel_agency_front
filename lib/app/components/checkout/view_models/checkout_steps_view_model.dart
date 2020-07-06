@@ -3,6 +3,8 @@ import 'package:mobx/mobx.dart';
 import 'package:travel_agency_front/app/components/checkout/view_models/checkout_payment_form_view_model.dart';
 import 'package:travel_agency_front/app/components/checkout/view_models/checkout_person_info_form_view_model.dart';
 import 'package:travel_agency_front/app/repositories/checkout_repository.dart';
+import 'package:travel_agency_front/app/utils/respository_result.dart';
+import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
 
 part 'checkout_steps_view_model.g.dart';
 
@@ -30,6 +32,9 @@ abstract class _CheckoutStepsBase with Store {
 
   @observable
   String currentStep = ITEMS_STEP;
+
+  @observable
+  RowViewDataAbstract item;
 
   @observable
   bool initializePersonInfoStep = false;
@@ -64,6 +69,11 @@ abstract class _CheckoutStepsBase with Store {
         break;
     }
     this.currentStep = selectedStep;
+  }
+
+  @action
+  void onLoad(RowViewDataAbstract item) {
+    this.item = item;
   }
 
   @action
@@ -108,7 +118,12 @@ abstract class _CheckoutStepsBase with Store {
 
     isFinishingOrder = true;
     var data = mountJsonToSendOnBody();
-    await repository.finishOrder(data);
+    RepositoryResult<String, String> response =
+        await repository.finishOrder(data);
+
+    if (response.success.isNotEmpty) {
+      Modular.to.pushNamed('/checkout/checkoutDone');
+    }
   }
 
   @action
@@ -165,9 +180,8 @@ abstract class _CheckoutStepsBase with Store {
       },
       "cep": checkoutPersonInfoFormViewModel.zipcode,
       "cpf": checkoutPersonInfoFormViewModel.document,
-      "descricaoProduto": "",
+      "descricaoProduto": item.cartTitle,
       "email": checkoutPersonInfoFormViewModel.email,
-      "id": 1,
       "nomeCliente": checkoutPersonInfoFormViewModel.completeName,
       "telefone": checkoutPersonInfoFormViewModel.telephone,
     };

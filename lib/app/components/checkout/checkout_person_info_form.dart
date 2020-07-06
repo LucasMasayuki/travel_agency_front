@@ -40,8 +40,8 @@ class _CheckoutPersonInfoFormState extends State<CheckoutPersonInfoForm> {
 
   List<Widget> _mountMobileForm() {
     const EdgeInsets padding = EdgeInsets.only(
-      top: 10,
-      bottom: 10,
+      top: 15,
+      bottom: 15,
     );
 
     List<Widget> inputListForm = [

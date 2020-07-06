@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:travel_agency_front/app/components/item_card/hotel_card.dart';
 import 'package:travel_agency_front/app/models/hotel_details_model.dart';
 import 'package:travel_agency_front/app/repositories/hotel_details_repository.dart';
+import 'package:travel_agency_front/app/view_data/hotel_details_view_data.dart';
 
 part 'hotel_details_view_model.g.dart';
 
@@ -10,7 +10,7 @@ class HotelDetailsViewModel = _HotelDetailsBase with _$HotelDetailsViewModel;
 
 abstract class _HotelDetailsBase with Store {
   @observable
-  List<HotelCard> hotelDetailsViewData = [];
+  HotelDetailsViewData hotelDetailsViewData;
 
   @observable
   bool isLoading = true;
@@ -19,7 +19,7 @@ abstract class _HotelDetailsBase with Store {
   String errorMessage;
 
   @computed
-  bool get isEmptyPage => hotelDetailsViewData.isEmpty;
+  bool get isEmptyPage => hotelDetailsViewData == null;
 
   @computed
   bool get hasError =>
@@ -37,23 +37,21 @@ abstract class _HotelDetailsBase with Store {
       hotelDetailsQueryParam.checkOut,
     );
 
-    final viewDataList = _buildViewData(result.success ?? []);
-
-    hotelDetailsViewData = [];
-    hotelDetailsViewData.addAll(viewDataList);
+    hotelDetailsViewData = _buildViewData(result.success ?? null);
     errorMessage = result.error;
     isLoading = false;
   }
 
-  List<HotelCard> _buildViewData(
-    List<HotelDetailsModel> hotel,
+  HotelDetailsViewData _buildViewData(
+    HotelDetailsModel hotelDetail,
   ) {
-    if (hotel.isEmpty) {
-      return [];
+    if (hotelDetail == null) {
+      return null;
     }
 
-    var viewDataList = <HotelCard>[];
+    HotelDetailsViewData viewData =
+        HotelDetailsViewData(hotelDetailsModel: hotelDetail);
 
-    return viewDataList;
+    return viewData;
   }
 }

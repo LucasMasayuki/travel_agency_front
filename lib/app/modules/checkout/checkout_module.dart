@@ -3,6 +3,7 @@ import 'package:travel_agency_front/app/components/checkout/view_models/checkout
 import 'package:travel_agency_front/app/components/checkout/view_models/checkout_person_info_form_view_model.dart';
 import 'package:travel_agency_front/app/components/checkout/view_models/checkout_steps_view_model.dart';
 import 'package:travel_agency_front/app/modules/checkout/checkout_page.dart';
+import 'package:travel_agency_front/app/modules/checkout_done/checkout_done_module.dart';
 import 'package:travel_agency_front/app/repositories/checkout_repository.dart';
 
 class CheckoutModule extends ChildModule {
@@ -21,6 +22,10 @@ class CheckoutModule extends ChildModule {
           child: (_, args) => CheckoutPage(
             item: args.data,
           ),
+        ),
+        Router(
+          "/checkoutDone",
+          module: CheckoutDoneModule(),
         ),
       ];
 

@@ -5,6 +5,7 @@ import 'package:travel_agency_front/app/components/categories_view/view_model/ca
 import 'package:travel_agency_front/app/components/categories_view/view_model/category_hotel_view_model.dart';
 import 'package:travel_agency_front/app/components/dialogs/view_model/send_email_dialog_view_model.dart';
 import 'package:travel_agency_front/app/components/front_layer/front_layer_view_model.dart';
+import 'package:travel_agency_front/app/components/item_card/view_models/hotel_details_view_model.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_car_rental_view_model.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_flight_view_model.dart';
 import 'package:travel_agency_front/app/components/search_items/view_models/search_hotel_view_model.dart';
@@ -13,6 +14,7 @@ import 'package:travel_agency_front/app/repositories/car_rental_repository.dart'
 import 'package:travel_agency_front/app/repositories/email_repository.dart';
 import 'package:travel_agency_front/app/repositories/flight_city_repository.dart';
 import 'package:travel_agency_front/app/repositories/hotel_city_repository.dart';
+import 'package:travel_agency_front/app/repositories/hotel_details_repository.dart';
 import 'package:travel_agency_front/app/repositories/hotel_repository.dart';
 import 'package:travel_agency_front/app/repositories/flight_repository.dart';
 import 'package:dio/dio.dart';
@@ -45,6 +47,8 @@ class AppModule extends MainModule {
         Bind((i) => SearchHotelViewModel()),
         Bind((i) => FrontLayerViewModel()),
         Bind((i) => SendEmailDialogViewModel()),
+        Bind((i) => HotelDetailsRepository()),
+        Bind((i) => HotelDetailsViewModel()),
       ];
 
   @override

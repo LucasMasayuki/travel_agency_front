@@ -66,8 +66,8 @@ abstract class _CheckoutPersonInfoFormBase with Store {
   }
 
   @action
-  void onChangeTelephone(email) {
-    this.email = email;
+  void onChangeTelephone(telephone) {
+    this.telephone = telephone;
   }
 
   @action

@@ -34,23 +34,38 @@ class _CheckoutStepsWidgetState extends State<CheckoutStepsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (BuildContext context) {
-      isMobile = MediaHelper.isMobile(context);
-      return Container(
-        padding: EdgeInsets.all(20),
-        child: Observer(builder: (_) {
-          if (this.widget.item == null) {
-            EmptyPageWidget();
-          }
+    checkoutStepsViewModel.onLoad(this.widget.item);
+    isMobile = MediaHelper.isMobile(context);
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Observer(builder: (_) {
+        if (this.widget.item == null) {
+          return Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Colors.white,
+            ),
+            child: EmptyPageWidget(),
+          );
+        }
 
-          if (checkoutStepsViewModel.isFinishingOrder) {
-            FinishCheckoutLoadingWidget();
-          }
+        if (checkoutStepsViewModel.isFinishingOrder) {
+          return Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Colors.white,
+            ),
+            child: FinishCheckoutLoadingWidget(),
+          );
+        }
 
-          return _builderStep();
-        }),
-      );
-    });
+        return _builderStep();
+      }),
+    );
   }
 
   getSteps() {

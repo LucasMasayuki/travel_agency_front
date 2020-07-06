@@ -1,6 +1,6 @@
 class FacilitiesModel {
   String heading;
-  List<String> listOfFacilities;
+  List<dynamic> listOfFacilities;
 
   FacilitiesModel();
 

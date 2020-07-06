@@ -5,6 +5,7 @@ import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
 import 'package:travel_agency_front/app/view_data/car_rental_view_data.dart';
 import 'package:travel_agency_front/app/view_data/flight_view_data.dart';
 import 'package:travel_agency_front/app/view_data/hotel_view_data.dart';
+import 'package:travel_agency_front/app/view_data/room_view_data.dart';
 
 class CheckoutItemWidget extends StatefulWidget {
   final RowViewDataAbstract item;
@@ -27,6 +28,7 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
     if (item is FlightViewData) {
       itemDescriptionWidget = buildDescriptionOfFlight(item);
     } else if (item is HotelViewData) {
+      itemDescriptionWidget = buildDescriptionOfHotel(item);
     } else if (item is CarRentalViewData) {
       itemDescriptionWidget = buildDescriptionOfCarRental(item);
     }
@@ -103,6 +105,24 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
       ],
     );
     return descriptionRow;
+  }
+
+  Widget buildDescriptionOfHotel(RoomViewData item) {
+    Widget descriptionRoom = Wrap(
+      direction: Axis.horizontal,
+      spacing: 10,
+      children: [
+        titleRow(),
+        subTitleRow("Informações do quarto"),
+        descriptionRow("Nome: ", item.name),
+        descriptionRow("Opções de cama: ", item.bedOptions),
+        descriptionRow("Acomodação: ", item.totalPeopleMessage),
+        subTitleRow("Preço"),
+        descriptionRow("Total: ", item.totalPrice),
+      ],
+    );
+
+    return descriptionRoom;
   }
 
   Widget buildDescriptionOfFlight(FlightViewData item) {

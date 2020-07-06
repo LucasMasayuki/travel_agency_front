@@ -17,6 +17,7 @@ class HomeModule extends ChildModule {
             checkIn: args.data["checkIn"],
             checkOut: args.data["checkOut"],
             name: args.data["name"],
+            adults: args.data["adults"],
           ),
         ),
         Router(

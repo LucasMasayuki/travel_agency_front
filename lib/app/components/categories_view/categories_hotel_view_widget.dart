@@ -65,7 +65,7 @@ class _CategoriesHotelViewWidgetState extends State<CategoriesHotelViewWidget> {
   Widget _mobileGridView(double ratio) {
     return GridView.count(
       padding: EdgeInsets.all(10),
-      childAspectRatio: ratio / 2,
+      childAspectRatio: ratio * 1.5,
       shrinkWrap: true,
       crossAxisCount: 1,
       crossAxisSpacing: 10,

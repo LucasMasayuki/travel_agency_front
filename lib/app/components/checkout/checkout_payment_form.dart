@@ -54,24 +54,18 @@ class _CheckoutPaymentFormState extends State<CheckoutPaymentForm> {
 
     formInputs.add(_numbersRowWidget());
     formInputs.add(
-      SizedBox(
-        height: 10,
-      ),
+      Padding(padding: EdgeInsets.all(15)),
     );
 
     formInputs.add(_nameRowWidget());
     formInputs.add(
-      SizedBox(
-        height: 10,
-      ),
+      Padding(padding: EdgeInsets.all(15)),
     );
 
     if (isMobile) {
       formInputs.add(expirationRowWidget);
       formInputs.add(
-        SizedBox(
-          height: 10,
-        ),
+        Padding(padding: EdgeInsets.all(15)),
       );
       formInputs.add(cvvRowWidget);
     } else {
