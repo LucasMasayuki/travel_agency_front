@@ -4,7 +4,6 @@ import 'package:travel_agency_front/app/components/checkout/view_models/checkout
 import 'package:travel_agency_front/app/utils/row_view_data_abstract.dart';
 import 'package:travel_agency_front/app/view_data/car_rental_view_data.dart';
 import 'package:travel_agency_front/app/view_data/flight_view_data.dart';
-import 'package:travel_agency_front/app/view_data/hotel_view_data.dart';
 import 'package:travel_agency_front/app/view_data/room_view_data.dart';
 
 class CheckoutItemWidget extends StatefulWidget {
@@ -27,7 +26,7 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
     Widget itemDescriptionWidget = Container();
     if (item is FlightViewData) {
       itemDescriptionWidget = buildDescriptionOfFlight(item);
-    } else if (item is HotelViewData) {
+    } else if (item is RoomViewData) {
       itemDescriptionWidget = buildDescriptionOfHotel(item);
     } else if (item is CarRentalViewData) {
       itemDescriptionWidget = buildDescriptionOfCarRental(item);
