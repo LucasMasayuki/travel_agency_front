@@ -106,17 +106,25 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
     );
   }
 
+  Widget spaceSubtitle() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10),
+    );
+  }
+
   Widget buildDescriptionOfHotel(RoomViewData item) {
     Widget descriptionRoom = Column(
       children: [
         titleRow(),
-        subTitleRow("Informações do quarto"),
         space(),
+        subTitleRow("Informações do quarto"),
+        spaceSubtitle(),
         descriptionRow("Nome: ", item.name),
         descriptionRow("Opções de cama: ", item.bedOptions),
         descriptionRow("Acomodação: ", item.totalPeopleMessage),
         space(),
         subTitleRow("Preço"),
+        spaceSubtitle(),
         descriptionRow("Total: ", item.totalPrice),
       ],
     );
@@ -130,18 +138,21 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
         titleRow(),
         space(),
         subTitleRow("Informações de ida"),
+        spaceSubtitle(),
         descriptionRow("De: ", item.goingOrigin),
         descriptionRow("Para: ", item.goingDestiny),
         descriptionRow("Companhia: ", item.goingCompany),
         descriptionRow("Horario decolagem: ", item.goingTakeOffTime),
         space(),
         subTitleRow("Informações da volta"),
+        spaceSubtitle(),
         descriptionRow("De: ", item.backOrigin),
         descriptionRow("Para: ", item.backDestiny),
         descriptionRow("Companhia: ", item.backCompany),
         descriptionRow("Horario decolagem: ", item.backTakeOffTime),
         space(),
         subTitleRow("Preço"),
+        spaceSubtitle(),
         descriptionRow("Total: ", item.total),
       ],
     );
@@ -155,6 +166,7 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
         titleRow(),
         space(),
         subTitleRow("Informações sobre o carro"),
+        spaceSubtitle(),
         descriptionRow("Modelo: ", item.car.model),
         descriptionRow("Cassificação: ", item.car.classification),
         descriptionRow(
@@ -165,11 +177,13 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
         descriptionRow("Ar condicionado: ", item.car.changeType),
         space(),
         subTitleRow("Informações do aluguel"),
+        spaceSubtitle(),
         descriptionRow("Local de retirada: ", item.placeWithdrawn),
         descriptionRow("Empresa: ", item.company),
         space(),
         subTitleRow("Preço"),
-        descriptionRow("Total: ", item.total.toString()),
+        spaceSubtitle(),
+        descriptionRow("Total: ", "R\$ ${item.total}"),
       ],
     );
 
