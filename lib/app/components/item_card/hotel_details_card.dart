@@ -227,15 +227,35 @@ class _HotelDetailCardState extends State<HotelDetailCard> {
         cards.add(RoomsCard(room: roomViewData));
       });
 
-      return GridView.count(
-        padding: EdgeInsets.all(10),
-        childAspectRatio: ratio * 1.5,
-        shrinkWrap: true,
-        crossAxisCount: 1,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        children: cards,
-      );
+      if (isMobile) {
+        return _mobileGridView(ratio, cards);
+      }
+
+      return _desktopGridView(ratio, cards);
     });
+  }
+
+  Widget _mobileGridView(double ratio, cards) {
+    return GridView.count(
+      padding: EdgeInsets.all(10),
+      childAspectRatio: ratio * 1.5,
+      shrinkWrap: true,
+      crossAxisCount: 1,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      children: cards,
+    );
+  }
+
+  Widget _desktopGridView(double ratio, cards) {
+    return GridView.count(
+      padding: EdgeInsets.all(20),
+      childAspectRatio: ratio,
+      shrinkWrap: true,
+      crossAxisCount: 1,
+      crossAxisSpacing: 20,
+      mainAxisSpacing: 20,
+      children: cards,
+    );
   }
 }
