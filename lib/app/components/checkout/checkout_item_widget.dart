@@ -37,9 +37,7 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
 
   Widget titleRow() {
     RowViewDataAbstract item = this.widget.item;
-    Widget titleRow = Wrap(
-      direction: Axis.horizontal,
-      spacing: 10,
+    Widget titleRow = Row(
       children: [
         Expanded(
           child: item.cartIcon,
@@ -63,24 +61,20 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
   }
 
   Widget subTitleRow(String subtitle) {
-    Widget titleRow = Wrap(direction: Axis.horizontal, spacing: 10, children: [
-      Text(
-        subtitle,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-        ),
-      )
-    ]);
+    Widget titleRow = Text(
+      subtitle,
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+      ),
+    );
 
     return titleRow;
   }
 
   Widget descriptionRow(String label, String value) {
-    Widget descriptionRow = Wrap(
-      direction: Axis.horizontal,
-      spacing: 10,
+    Widget descriptionRow = Row(
       children: [
         Expanded(
           child: Text(
@@ -106,16 +100,22 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
     return descriptionRow;
   }
 
+  Widget space() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 20, top: 20),
+    );
+  }
+
   Widget buildDescriptionOfHotel(RoomViewData item) {
-    Widget descriptionRoom = Wrap(
-      direction: Axis.horizontal,
-      spacing: 10,
+    Widget descriptionRoom = Column(
       children: [
         titleRow(),
         subTitleRow("Informações do quarto"),
+        space(),
         descriptionRow("Nome: ", item.name),
         descriptionRow("Opções de cama: ", item.bedOptions),
         descriptionRow("Acomodação: ", item.totalPeopleMessage),
+        space(),
         subTitleRow("Preço"),
         descriptionRow("Total: ", item.totalPrice),
       ],
@@ -125,21 +125,22 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
   }
 
   Widget buildDescriptionOfFlight(FlightViewData item) {
-    Widget descriptionFlight = Wrap(
-      direction: Axis.horizontal,
-      spacing: 10,
+    Widget descriptionFlight = Column(
       children: [
         titleRow(),
+        space(),
         subTitleRow("Informações de ida"),
         descriptionRow("De: ", item.goingOrigin),
         descriptionRow("Para: ", item.goingDestiny),
         descriptionRow("Companhia: ", item.goingCompany),
         descriptionRow("Horario decolagem: ", item.goingTakeOffTime),
+        space(),
         subTitleRow("Informações da volta"),
         descriptionRow("De: ", item.backOrigin),
         descriptionRow("Para: ", item.backDestiny),
         descriptionRow("Companhia: ", item.backCompany),
         descriptionRow("Horario decolagem: ", item.backTakeOffTime),
+        space(),
         subTitleRow("Preço"),
         descriptionRow("Total: ", item.total),
       ],
@@ -149,11 +150,10 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
   }
 
   Widget buildDescriptionOfCarRental(CarRentalViewData item) {
-    Widget descriptionFlight = Wrap(
-      direction: Axis.vertical,
-      spacing: 10,
+    Widget descriptionFlight = Column(
       children: [
         titleRow(),
+        space(),
         subTitleRow("Informações sobre o carro"),
         descriptionRow("Modelo: ", item.car.model),
         descriptionRow("Cassificação: ", item.car.classification),
@@ -163,9 +163,11 @@ class _CheckoutItemWidgetState extends State<CheckoutItemWidget> {
         ),
         descriptionRow("Tipo de cambio: ", item.car.changeType),
         descriptionRow("Ar condicionado: ", item.car.changeType),
+        space(),
         subTitleRow("Informações do aluguel"),
         descriptionRow("Local de retirada: ", item.placeWithdrawn),
         descriptionRow("Empresa: ", item.company),
+        space(),
         subTitleRow("Preço"),
         descriptionRow("Total: ", item.total.toString()),
       ],

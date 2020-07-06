@@ -13,7 +13,7 @@ class GoToMainPageButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
       ),
-      onPressed: () => Modular.to.popAndPushNamed(Modular.initialRoute),
+      onPressed: () => Modular.to.popUntil(ModalRoute.withName("/")),
       child: Text('Voltar para página inicial'),
       color: Colors.indigo,
       textColor: Colors.white,
