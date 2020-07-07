@@ -86,7 +86,6 @@ class _CheckoutPaymentFormState extends State<CheckoutPaymentForm> {
               fontSize: isMobile ? 10 : null,
               keyboardType: TextInputType.number,
               hintText: 'Número do cartão',
-              maxLength: 19,
               onChanged: checkoutPaymentFormViewModel.onChangeNumber,
               prefixIcon: Icon(Icons.credit_card),
               validator: (_) {
@@ -136,7 +135,6 @@ class _CheckoutPaymentFormState extends State<CheckoutPaymentForm> {
           onChanged: checkoutPaymentFormViewModel.onChangeExpiration,
           prefixIcon: Icon(Icons.calendar_today),
           inputFormatters: [MaskTextInputFormatter(mask: "##/##")],
-          maxLength: 5,
           validator: (_) {
             return !checkoutPaymentFormViewModel.isValidExpiration()
                 ? 'Preencha data de expiração'
@@ -152,7 +150,6 @@ class _CheckoutPaymentFormState extends State<CheckoutPaymentForm> {
           fontSize: isMobile ? 10 : null,
           keyboardType: TextInputType.number,
           hintText: 'CVV',
-          maxLength: 3,
           onChanged: checkoutPaymentFormViewModel.onChangeCvc,
           prefixIcon: Icon(Icons.credit_card),
           inputFormatters: [MaskTextInputFormatter(mask: "###")],

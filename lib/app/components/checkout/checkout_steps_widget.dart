@@ -120,25 +120,22 @@ class _CheckoutStepsWidgetState extends State<CheckoutStepsWidget> {
           borderRadius: BorderRadius.circular(30),
           color: Colors.white,
         ),
-        child: SingleChildScrollView(
-          child: Stepper(
-            type: StepperType.vertical,
-            steps: getSteps(),
-            currentStep: STEPS[checkoutStepsViewModel.currentStep],
-            onStepTapped: (int step) =>
-                checkoutStepsViewModel.onClickStep(step),
-            controlsBuilder: (BuildContext context,
-                {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
-              return CheckoutStepsButtonGroup(
-                nextButtonText: checkoutStepsViewModel.nextButtonText,
-                prevButtonText: checkoutStepsViewModel.prevButtonText,
-                onClickNext: checkoutStepsViewModel.onClickNext,
-                onClickPrev: checkoutStepsViewModel.onClickPrev,
-                showPrevButton: checkoutStepsViewModel.showPrevButton,
-                minWidth: isMobile ? 75 : 200,
-              );
-            },
-          ),
+        child: Stepper(
+          type: StepperType.vertical,
+          steps: getSteps(),
+          currentStep: STEPS[checkoutStepsViewModel.currentStep],
+          onStepTapped: (int step) => checkoutStepsViewModel.onClickStep(step),
+          controlsBuilder: (BuildContext context,
+              {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+            return CheckoutStepsButtonGroup(
+              nextButtonText: checkoutStepsViewModel.nextButtonText,
+              prevButtonText: checkoutStepsViewModel.prevButtonText,
+              onClickNext: checkoutStepsViewModel.onClickNext,
+              onClickPrev: checkoutStepsViewModel.onClickPrev,
+              showPrevButton: checkoutStepsViewModel.showPrevButton,
+              minWidth: isMobile ? 75 : 200,
+            );
+          },
         ),
       );
 }
