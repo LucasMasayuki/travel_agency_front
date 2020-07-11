@@ -24,13 +24,19 @@ https://flutter.dev/docs/deployment/android#build-an-app-bundle
 From the command line:
 
 Enter cd <app dir>
+  
 (Replace <app dir> with your application’s directory.)
+  
 Run flutter build appbundle
+  
 (Running flutter build defaults to a release build.)
+  
 The release bundle for your app is created at <app dir>/build/app/outputs/bundle/release/app.aab.
 
 https://flutter.dev/docs/deployment/android#test-the-app-bundle
 
 If you haven’t done so already, download bundletool from the GitHub [repository](https://github.com/google/bundletool/releases/tag/1.0.0).
+
 [Generate a set of APKs](https://developer.android.com/studio/command-line/bundletool#generate_apks) from your app bundle.
+
 [Deploy the APKs](https://developer.android.com/studio/command-line/bundletool#deploy_with_bundletool) to connected devices.
