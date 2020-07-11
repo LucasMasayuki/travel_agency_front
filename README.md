@@ -17,8 +17,11 @@ https://flutter.dev/
 
 ## How to install on android
 
-Clone project 
+### Clone project 
 
+git clone git@github.com:LucasMasayuki/travel_agency_front.git
+
+### Build app bundle
 https://flutter.dev/docs/deployment/android#build-an-app-bundle
 
 From the command line:
@@ -32,6 +35,8 @@ Run flutter build appbundle
 (Running flutter build defaults to a release build.)
   
 The release bundle for your app is created at <app dir>/build/app/outputs/bundle/release/app.aab.
+
+### Test the app bundle
 
 https://flutter.dev/docs/deployment/android#test-the-app-bundle
 
